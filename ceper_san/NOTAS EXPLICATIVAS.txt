@@ -1,0 +1,40 @@
+Código do Município ----- Novo nome: cod 
+Município ----- Novo nome: mun 
+Estado ----- Novo nome: est 
+Ano de Referência ----- Novo nome: ano 
+Prestadores ----- Novo nome: prest 
+Serviços ----- Novo nome: serv 
+G06A - População urbana residente do(s) município(s) com abastecimento de água ----- Novo nome: pop_urb_a 
+G06B - População urbana residente do(s) município(s) com esgotamento sanitário ----- Novo nome: pop_urb_e 
+G12A - População total residente do(s) município(s) com abastecimento de água, segundo o IBGE ----- Novo nome: pop_urb_aI 
+G12B - População total residente do(s) município(s) com esgotamento sanitário, segundo o IBGE ----- Novo nome: pop_urb_eI 
+POP_TOT - População total do município do ano de referência (Fonte: IBGE): ----- Novo nome: pop_tot 
+POP_URB - População urbana do município do ano de referência (Fonte: IBGE): ----- Novo nome: pop_urb 
+AG001 - População total atendida com abastecimento de água ----- Novo nome: pop_tot_a 
+AG026 - População urbana atendida com abastecimento de água ----- Novo nome: pop_urb_a 
+ES001 - População total atendida com esgotamento sanitário ----- Novo nome: pop_tot_e 
+ES026 - População urbana atendida com esgotamento sanitário ----- Novo nome: pop_urb_e 
+IN015_AE - Índice de coleta de esgoto -----     Novo nome: ice 
+IN016_AE - Índice de tratamento de esgoto ----- Novo nome: ite                                                     x 
+
+IN023_AE - Índice de atendimento urbano de água ----- Novo nome: iaua 
+IN024_AE - Índice de atendimento urbano de esgoto referido aos municípios atendidos com água ----- Novo nome: iauera 
+IN047_AE - Índice de atendimento urbano de esgoto referido aos municípios atendidos com esgoto ----- Novo nome: iauere 
+
+IN055_AE - Índice de atendimento total de água ----- Novo nome: iata                                                x
+
+IN056_AE - Índice de atendimento total de esgoto referido aos municípios atendidos com água ----- Novo nome: iatera x
+
+
+
+
+
+## nome da figura
+
+G_sigla14
+
+G de gráfico
+sigla do gráfico
+14 dígitos do ano dos dados
+
+ex:  G_ice14   -> gráfico do Índice de tratamento de esgoto (ice) com dados de 2014
