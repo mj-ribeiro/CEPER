@@ -137,36 +137,6 @@ box =  box  %>% st_as_sfc()
 
 # maps
 
-pnames()
-
-
-for (i in 0:18) {
-  
-  filt = df$ano == (2000+i )
-  sp$var = df[filt, ]$ice
-  
-        g1 =  tm_shape(sp, bbox = box) +
-              tm_polygons('var',  title='ice',  textNA = 'Sem dados') +
-              tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
-              tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
-              tm_layout(
-                        legend.text.size = 0.8,
-                        frame = T,
-                        legend.format = list(text.separator = "-"))
-    nam =  paste("G_ice", i, sep = "")
-    assign(nam, g1)
-   tmap_save(g1, filename = paste("G_ice",i, ".png", sep = "") )
-}
-        
-
-
-
-pnames()
-
-
-
-
-
 
 
 
@@ -194,6 +164,9 @@ maps_f = function(x){
 
 
 
+
+
+pnames()
 
 maps_f('iata')
 
