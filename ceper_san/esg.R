@@ -12,6 +12,7 @@ library(magrittr)
 library(raster)
 library(tmap)
 library(reshape2)
+library("writexl")
 
 
 
@@ -91,10 +92,30 @@ explore = function(df, x){
 }
 
 
-explore(df, 'ice')
+
+explore2 = function(df, x){
+  a = matrix(nrow=19, ncol=8)
+  for(i in 0:18){
+    #cat('Ano:', 2000+i, '\n')
+    a[i+1,1:7] = summary(df[df$ano==2000+i, x ])
+    a[i+1,8] = 2000+i
+  }
+  a = data.frame(a)
+  colnames(a) = c('Min.', '1st Qu.', 'Median', 'Mean', '3rd Qu.', 'Max.', 'NAs', 'ano')
+  return(a)
+}
+
+l = c('ite', 'iaua', 'iatera', 'iata')
 
 
-pnames()
+for(x in l){
+  k = data.frame( explore2(df, x) )
+  write_xlsx(k,  paste("I_",x, ".xlsx", sep = ""))
+}
+
+
+
+
 
 
 
@@ -124,15 +145,6 @@ box =  box  %>% st_as_sfc()
 
 
 
-#div = aggregate(df$ice, by=list(category=df$ano), FUN=sum, na.rm=T)
-
-
-#for(i in 1:18){
-#  df$ice[df$ano==1999+i] = df[df$ano==1999+i, 'ice']/div[2][i,1]
-#}
-
-#df$ice=df$ice*100
-
 
 
 # maps
@@ -144,10 +156,10 @@ maps_f = function(x){
   
   for (i in 0:18) {
     
-    filt = df$ano == (2000+i )
+    filt = df$ano == (2000+i)
     sp$var = df[filt,x ]
     
-    g1 =  tm_shape(sp, bbox = box) +
+    g1 =  tm_shape(sp) +
       tm_polygons('var',  title=toupper(x),  textNA = 'Sem dados') +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
       tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
@@ -155,7 +167,7 @@ maps_f = function(x){
         legend.text.size = 0.8,
         frame = T,
         legend.format = list(text.separator = "-"))
-    nam =  paste("G_ice", i, sep = "")
+    nam =  paste("G_", i, sep = "")
     assign(nam, g1)
     tmap_save(g1, filename = paste("G_",x, i, ".png", sep = "") )
   }
