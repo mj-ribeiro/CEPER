@@ -25,7 +25,7 @@ df = as.data.frame(df)
 
 
 
-## rename
+#### rename
 
 or_names = colnames(df)
 
@@ -108,13 +108,11 @@ explore2 = function(df, x){
 l = c('ite', 'iaua', 'iatera', 'iata')
 
 
+
 for(x in l){
   k = data.frame( explore2(df, x) )
   write_xlsx(k,  paste("I_",x, ".xlsx", sep = ""))
 }
-
-
-
 
 
 
@@ -139,15 +137,6 @@ box[4] <- box[4] + (0.1 * yrange) # ymax - top
 
 box =  box  %>% st_as_sfc()
 
-
-## filter data
-
-
-
-
-
-
-# maps
 
 
 
@@ -190,17 +179,11 @@ maps_f('iata')
 
 
 
-### hist
-
-
 
 # ite e ice
 
 
 df2 =  df[df$ano==2018, c('ice', 'ite')]
-
-
-
 
 
 data = melt(data = df2)
