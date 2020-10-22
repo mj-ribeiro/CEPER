@@ -195,13 +195,16 @@ colnames(data)[1] = 'Índice'
 
 g0 = ggplot(data = data, aes(x=value)) 
 
-g1 = g0 +  geom_histogram(binwidth = 10,  aes(fill=Índice),  
-                    colour='black', position = 'stack') +
+g1 = g0 +  geom_histogram(aes(fill=Índice),  
+                    colour='black', position = 'stack',
+                    breaks=seq(0, 100, 10)) +
+      scale_x_continuous(breaks=seq(0,100,10)) +
       ylab('Quantidade de municípios') +
       xlab('Índices') +
       theme_minimal() +
       scale_fill_discrete( labels = c("ICE", "ITE"))
 
+g1
 
 ggsave('g1.png')
 
@@ -226,13 +229,16 @@ colnames(df3)[1] = 'IATA'
 g2 = ggplot(data = df3, aes(x=IATA)) 
 
 
-g3 = g2 +  geom_histogram(binwidth = 10,  aes(fill=Índice),  
-                          colour='black', position = 'stack') +
+g3 = g2 +  geom_histogram( aes(fill=Índice),  
+                          colour='black', position = 'stack',
+                         breaks=seq(0, 100, 10) ) +
+  scale_x_continuous(breaks=seq(0,100,10)) +
   ylab('Quantidade de municípios') +
   theme_minimal() +
   theme(legend.position='none')  
   
  
+g3
 
 
 ggsave('g3.png')
