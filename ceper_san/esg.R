@@ -193,6 +193,7 @@ colnames(data)[1] = 'Índice'
 
 
 
+
 g0 = ggplot(data = data, aes(x=value)) 
 
 g1 = g0 +  geom_histogram(aes(fill=Índice),  
@@ -205,6 +206,8 @@ g1 = g0 +  geom_histogram(aes(fill=Índice),
       scale_fill_discrete( labels = c("ICE", "ITE"))
 
 g1
+
+
 
 ggsave('g1.png')
 
