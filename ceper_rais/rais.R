@@ -24,25 +24,38 @@ idade = read_xlsx('rais.xlsx', sheet = 5)
 idade = data.frame(idade)
 
 
+old_n = colnames(idade)
+
+
+new_n =  c('Região', '10 a 14 anos', '15 a 17 anos',
+                    '18 a 20 anos', '25 a 29 anos', 
+                    '30 a 39 anos', '40 a 49 anos',
+                    '50 a 64 anos', 'Mais de 65 anos', 'Total')
 
 
 
-region$var = idade[,2]
 
 
+map = function(){
+  for(i in 2:length(idade)){
 
+  region$var = idade[,i]
 
-  tm_shape(region) +
-  tm_polygons('var',  textNA = 'Sem dados') +
+  g1 = tm_shape(region) +
+  tm_polygons('var', title = new_n[i],  textNA = 'Sem dados') +
   tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
   tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
   tm_layout(
     legend.text.size = 0.8,
     frame = T,
-    legend.format = list(text.separator = "-"))
+    legend.format = list(text.separator = "-", 
+                         fun=function(x) formatC(x, digits=0, format="d")))
+  nam =  paste("G_", i, sep = "")
+  assign(nam, g1)
+  tmap_save(g1, filename = paste("G_", i, ".png", sep = "") )
+}
+}
 
 
-
-
-
+map()
 
