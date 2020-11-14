@@ -1,4 +1,5 @@
 
+
 setwd("D:/Git projects/CEPER/ceper_rais")
 
 
@@ -73,6 +74,30 @@ sex = data.frame(sex)
 new_n2 =  c('Região', 'Masculino', 'Feminino', 'Total')
 
 map(sex, new_n2)
+
+
+
+#### Mapas por escolaridade
+
+
+
+esc = read_xlsx('rais.xlsx', sheet = 2)
+
+esc = data.frame(esc)
+
+
+new_n3 = c("Região", "Analfabeto",  "Até 5ª Incompleto",
+           "5ª Completo Fundamental", "6ª a 9ª Fundamental",
+           "Fundamental Completo" , "Médio Incompleto", "Médio Completo",
+            "Superior Incompleto",  "Superior Completo", "Mestrado",                 
+           "Doutorado", "Total" )                   
+
+
+
+map(esc, new_n3)
+
+
+
 
 
 
