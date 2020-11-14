@@ -33,20 +33,20 @@ new_n =  c('Região', '10 a 14 anos', '15 a 17 anos',
                     '50 a 64 anos', 'Mais de 65 anos', 'Total')
 
 
+### mapas  salário por faixa etária
 
 
+map = function(df, name){
+  for(i in 2:length(df)){
 
-map = function(){
-  for(i in 2:length(idade)){
-
-  region$var = idade[,i]
+  region$var = df[,i]
 
   g1 = tm_shape(region) +
-  tm_polygons('var', title = new_n[i],  textNA = 'Sem dados') +
+  tm_polygons('var', title = name[i],  textNA = 'Sem dados') +
   tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
   tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
   tm_layout(
-    legend.text.size = 0.8,
+    legend.text.size = 1,
     frame = T,
     legend.format = list(text.separator = "-", 
                          fun=function(x) formatC(x, digits=0, format="d")))
@@ -57,5 +57,24 @@ map = function(){
 }
 
 
-map()
+map(idade, new_n)
+
+
+
+#### Mapas: por sexo
+
+
+sex = read_xlsx('rais.xlsx', sheet = 3)
+
+sex = data.frame(sex)
+
+
+
+new_n2 =  c('Região', 'Masculino', 'Feminino', 'Total')
+
+map(sex, new_n2)
+
+
+
+
 
