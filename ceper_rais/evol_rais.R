@@ -138,14 +138,32 @@ g1 = ggplot(data=sex, aes(x=X2003, y=X2019)) +
   ylab('2019') +
   xlab('2003')
 
+g1
+
+######## Diferença salarial por escolaridade
+
+head(esc)
 
 
-
-
-ggsave('g1.png')
-
-
-
+   ggplot(data=esc, aes(x=Médio.Completo, y=Superior.Completo)) +
+  geom_point(size=0) +
+  #  theme_minimal() +
+  scale_x_continuous(breaks=seq(0,200,10)) +
+  scale_y_continuous(breaks=seq(0,200,10)) +
+  geom_text(aes(label=regiao),hjust=0.1, vjust=0, size=4) +
+  geom_abline(aes( slope=1, intercept=0, colour = "Linha de 45°"), show.legend =TRUE) +
+  scale_color_manual( values=c("Linha de 45°"="black")) +
+  labs(color='') +
+  theme(legend.position="right",
+        legend.key = element_rect(fill = NA, color = 'black'),
+        legend.key.size = unit(0.3, "cm"),
+        legend.key.width = unit(0.3,"cm"), 
+        axis.text.x = element_text( size=15), 
+        axis.text.y = element_text(size=15), 
+        axis.title.x = element_text(colour = 'black', size=15),
+        axis.title.y = element_text(colour = 'black', size=15)) +
+  ylab('Ensino Superior Completo') +
+  xlab('Ensino Médio Completo')
 
 
 

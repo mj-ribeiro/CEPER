@@ -188,23 +188,23 @@ df2 =  df[df$ano==2018, c('ice', 'ite')]
 
 data = melt(data = df2)
 
-colnames(data)[1] = 'Õndice'
+colnames(data)[1] = '√çndice'
 
 
 
 
 
-g0 = ggplot(data = data, aes(x=value, fill=Õndice)) 
+g0 = ggplot(data = data, aes(x=value, fill=√çndice)) 
 
 g1 = g0 + geom_histogram(position = 'dodge',
                  colour='black',
                  breaks=seq(0, 100, 10),
                  binwidth=12) +
   scale_x_continuous(breaks=seq(0,100,10)) +
-  ylab('Quantidade de municÌpios') +
-  xlab('Õndices') +
+  ylab('Quantidade de munic?pios') +
+  xlab('√çndices') +
   theme_minimal() +
-  facet_wrap(vars(Õndice)) +
+  facet_wrap(vars(?ndice)) +
   theme(strip.text.x = element_blank()) +
   stat_bin( breaks=seq(0,100,10), binwidth=12, geom='text', color='black', aes(label=..count..),
             vjust=-0.5, hjust=0.5 ) +
@@ -227,7 +227,7 @@ ggsave('g1.png')
 df3 = data.frame( df[df$ano==2018, c('iata')] )
 
 
-df3$Õndice = rep('IATA', nrow(df3))
+df3$?ndice = rep('IATA', nrow(df3))
 
 colnames(df3)[1] = 'IATA'
 
@@ -242,8 +242,8 @@ g3 = g2 +  geom_histogram(fill='red',
                           breaks=seq(0, 100, 10),
                           binwidth=12,) +
   scale_x_continuous(breaks=seq(0,100,10)) +
-  ylab('Quantidade de municÌpios') +
-  xlab('Õndices') +
+  ylab('Quantidade de munic√≠pios') +
+  xlab('√çndices') +
   theme_minimal() +
   stat_bin( breaks=seq(0,100,10), binwidth=12, 
             geom='text', 
