@@ -7,7 +7,7 @@ library(tmap)
 library(readxl)
 
 
-# carregar shape file das regiões de governo
+# carregar shape file das regiões de governo ---------
 
 load('regions.rda')
 region = polygons_regioes_gov_sp
@@ -17,7 +17,7 @@ rm(polygons_regioes_gov_sp)
 
 
 
-## dados da rais
+## dados da rais  ----------
 # por faixa etária
 
 idade = read_xlsx('evol.xlsx', sheet = 2)
@@ -108,7 +108,8 @@ map(esc, new_n3)
 
 
 
-##### diferença salarial entre homens e mulheres
+
+# Diferença salarial entre homens e mulheres -------------
 
 
 # see: https://www.datanovia.com/en/blog/ggplot-legend-title-position-and-labels/
@@ -140,7 +141,67 @@ g1 = ggplot(data=sex, aes(x=X2003, y=X2019)) +
 
 g1
 
-######## Diferença salarial por escolaridade
+
+# Diferença salarial entre homens e mulheres (dotplot) 
+
+
+sex2 = sex[,c(1,2,6)]
+
+head(sex2)
+
+colnames(sex2) = c('regiao', '2003', '2019')
+
+sex2$evol = sex2[,'2019'] - sex2[,'2003']
+
+
+
+sex_panel = reshape2::melt(sex2, id.vars=c("regiao", 'evol'), 
+                           variable.name="ano", 
+                           value.name="index")
+sex_panel  =data.frame(sex_panel)
+
+
+head(sex_panel)
+
+
+
+sex_panel$evol2 = ifelse(sex_panel$ano==2003 & sex_panel$evol>0,
+                         sex_panel$index+3, 
+                         ifelse(sex_panel$ano==2019 & sex_panel$evol<0,
+                                sex_panel$index+3,
+                                sex_panel$index ) )
+
+
+
+ggplot(sex_panel) + 
+  geom_path(aes(x = evol2, 
+                y = regiao),
+            lineend = "butt",
+            linejoin = 'bevel',
+            na.rm = TRUE,
+            show.legend = FALSE,
+            arrow = arrow(length = unit(1.5, 'mm'), type = 'closed')) +
+  geom_text(aes(x = index,
+                y = regiao,
+                label = formatC(index, digits = 3, big.mark = '.', 
+                                decimal.mark = ','),
+                hjust= 0) )  +
+  scale_x_continuous(limits = c(0, 80)) +
+  theme(panel.grid.major.x = element_blank(),
+        axis.text.x = element_blank(),
+        panel.grid.major.y = element_line(linetype = 'dotted'))+
+  labs(
+    x = 'índice',
+    y = 'Região de Governo',
+    title = '',
+    subtitle = '',
+    caption = 'Direção da seta indica a evolução de 2003 para 2019'
+  ) 
+
+
+
+
+######## Diferença salarial por escolaridade 
 
 head(esc)
 
