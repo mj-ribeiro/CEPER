@@ -2,7 +2,8 @@
 
 setwd("D:/Git projects/CEPER/ceper_rais")
 
-
+library(ggplot2)
+library(tidyverse)
 library(tmap)
 library(readxl)
 
@@ -114,7 +115,6 @@ map(esc, new_n3)
 
 # see: https://www.datanovia.com/en/blog/ggplot-legend-title-position-and-labels/
 
-library(ggplot2)
 
 head(sex)
 
@@ -153,55 +153,75 @@ colnames(sex2) = c('regiao', '2003', '2019')
 
 sex2$evol = sex2[,'2019'] - sex2[,'2003']
 
+sex2$evol1 = abs(sex2[,'2019'] - sex2[,'2003'])
 
 
-sex_panel = reshape2::melt(sex2, id.vars=c("regiao", 'evol'), 
+sex_panel = reshape2::melt(sex2, id.vars=c("regiao", 'evol', 'evol1'), 
                            variable.name="ano", 
                            value.name="index")
+
 sex_panel  =data.frame(sex_panel)
 
+
+
+sex_panel$evol2 = ifelse(sex_panel$ano==2003 & sex_panel$evol>0 & sex_panel$evol<3,
+                         sex_panel$index+2, 
+                         ifelse(sex_panel$ano==2003 & sex_panel$evol>=3,
+                                sex_panel$index+2.5,
+                         ifelse(sex_panel$ano==2019 & sex_panel$evol<0 & sex_panel$evol>-1.5,
+                                sex_panel$index+0.5,
+                         ifelse(sex_panel$ano==2019 & sex_panel$evol<=-1.5 & sex_panel$evol>-2.5, 
+                                sex_panel$index+1.0,
+                          ifelse(sex_panel$ano==2019 & sex_panel$evol<=-2.5,
+                                 sex_panel$index+2.5,
+                                 sex_panel$index) )) ) ) 
+
+
+sex_panel = sex_panel[order(sex_panel$evol), ]
 
 head(sex_panel)
 
 
 
-sex_panel$evol2 = ifelse(sex_panel$ano==2003 & sex_panel$evol>0,
-                         sex_panel$index+3, 
-                         ifelse(sex_panel$ano==2019 & sex_panel$evol<0,
-                                sex_panel$index+3,
-                                sex_panel$index ) )
+sex_panel = tibble(sex_panel)
+
+sex_panel =  sex_panel %>%
+   mutate(regiao2 = fct_reorder(regiao,
+                                evol1,
+                                last) )
 
 
 
-ggplot(sex_panel) + 
-  geom_path(aes(x = evol2, 
-                y = regiao),
-            lineend = "butt",
-            linejoin = 'bevel',
-            na.rm = TRUE,
-            show.legend = FALSE,
-            arrow = arrow(length = unit(1.5, 'mm'), type = 'closed')) +
+g2 = ggplot(sex_panel) + 
+  geom_path(aes(x = evol2, y = regiao2),
+            arrow = arrow(length = unit(1.5, 'mm'), type = 'closed'),
+            linejoin = "round", lineend = "butt") +
   geom_text(aes(x = index,
-                y = regiao,
+                y = regiao2,
                 label = formatC(index, digits = 3, big.mark = '.', 
                                 decimal.mark = ','),
-                hjust= 0) )  +
+                hjust= 0), )  +
+  cagedExplorer::custom_theme() +
   scale_x_continuous(limits = c(0, 80)) +
   theme(panel.grid.major.x = element_blank(),
         axis.text.x = element_blank(),
         panel.grid.major.y = element_line(linetype = 'dotted'))+
   labs(
-    x = 'índice',
+    x = 'Diferença % entre a remuneração de homens e mulheres em 2003 e 2019',
     y = 'Região de Governo',
     title = '',
     subtitle = '',
     caption = 'Direção da seta indica a evolução de 2003 para 2019'
   ) 
 
+g2
+
+ggsave(plot = g2,
+       filename = 'g3.png',
+       height = 8, width = 15)
 
 
-
-######## Diferença salarial por escolaridade 
+#### Diferença salarial por escolaridade 
 
 head(esc)
 
