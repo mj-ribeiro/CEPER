@@ -9,7 +9,7 @@ library(readxl)
 library("cagedExplorer")
 
 
-# carregar shape file das regiões de governo ---------
+# carregar shape file das regiÃµes de governo ---------
 
 load('regions.rda')
 region = polygons_regioes_gov_sp
@@ -18,23 +18,7 @@ rm(polygons_regioes_gov_sp)
 
 
 
-
-## dados da rais  ----------
-# por faixa etária
-
-idade = read_xlsx('evol.xlsx', sheet = 2)
-idade = data.frame(idade)
-
-idade[,2:9] = idade[,2:9]*100
-
-
-
-new_n =  c('Região', '10 a 14 anos', '15 a 17 anos',
-           '18 a 20 anos', '25 a 29 anos', 
-           '30 a 39 anos', '40 a 49 anos',
-           '50 a 64 anos', 'Mais de 65 anos', 'Total')
-
-
+# funcao ----
 
 
 map = function(df, name){
@@ -50,7 +34,8 @@ map = function(df, name){
         legend.text.size = 1,
         frame = T,
         legend.format = list(text.separator = "-", 
-                             fun=function(x) paste0(formatC(x, digits=2, format="f"), "%")) )
+                             fun=function(x) paste0(formatC(x, digits=2, format="f",
+                                                            decimal.mark = ','), "%")) )
     nam =  paste("G_", i, sep = "")
     assign(nam, g1)
     tmap_save(g1, filename = paste("G_", i, ".png", sep = "") )
@@ -61,11 +46,26 @@ map = function(df, name){
 map(idade, new_n)
 
 
+# Mapas: faixa etaria  ----------
+
+
+
+idade = read_xlsx('evol.xlsx', sheet = 2)
+idade = data.frame(idade)
+
+idade[,2:9] = idade[,2:9]*100
+
+
+
+new_n =  c('Regiao', '10 a 14 anos', '15 a 17 anos',
+           '18 a 24 anos', '25 a 29 anos', 
+           '30 a 39 anos', '40 a 49 anos',
+           '50 a 64 anos', 'Mais de 65 anos', 'Total')
 
 
 
 
-#### Mapas: por sexo
+##  Mapas:  sexo
 
 
 sex = read_xlsx('evol.xlsx', sheet = 3)
@@ -85,7 +85,7 @@ map(sex, new_n2)
 
 
 
-#### Mapas por escolaridade
+## Mapas: por escolaridade ----
 
 
 
@@ -96,6 +96,7 @@ esc = data.frame(esc)
 esc[,2:13] = esc[,2:13]*100
 
 
+colnames(esc)
 
 new_n3 = c("Região", "Analfabeto",  "Até 5ª Incompleto",
            "5ª Completo Fundamental", "6ª a 9ª Fundamental",
@@ -111,7 +112,7 @@ map(esc, new_n3)
 
 
 
-# Diferença salarial entre homens e mulheres -------------
+# Diferenca salarial entre homens e mulheres -------
 
 
 # see: https://www.datanovia.com/en/blog/ggplot-legend-title-position-and-labels/
@@ -126,8 +127,8 @@ g1 = ggplot(data=sex, aes(x=X2003, y=X2019)) +
   scale_x_continuous(breaks=seq(0,100,10)) +
   scale_y_continuous(breaks=seq(0,100,10)) +
   geom_text(aes(label=regiao),hjust=0.1, vjust=0, size=4) +
-  geom_abline(aes( slope=1, intercept=0, colour = "Linha de 45°"), show.legend =TRUE) +
-  scale_color_manual( values=c("Linha de 45°"="black")) +
+  geom_abline(aes( slope=1, intercept=0, colour = "Linha de 45Â°"), show.legend =TRUE) +
+  scale_color_manual( values=c("Linha de 45Â°"="black")) +
   labs(color='') +
   theme(legend.position="right",
         legend.key = element_rect(fill = NA, color = 'black'),
@@ -143,7 +144,7 @@ g1 = ggplot(data=sex, aes(x=X2003, y=X2019)) +
 g1
 
 
-# Diferença salarial entre homens e mulheres (dotplot) 
+# DiferenÃ§a salarial entre homens e mulheres (dotplot) 
 
 
 sex2 = sex[,c(1,2,6)]
@@ -173,7 +174,7 @@ sex_panel =  sex_panel %>%
 
 
 
-breaks <- seq(0,45,5)
+breaks <- seq(-45,15,5)
 palette <- c(reds_full[2:4], blues_full[3:8])
 
 
@@ -199,8 +200,8 @@ g4 = ggplot(sex2) +
   geom_vline(xintercept = 0, col = 'darkred', alpha = 0.5) +
   custom_theme() +
   theme(legend.position = 'none') +
-  labs(x = 'Diferença % entre a remuneração de homens e mulheres entre 2003 e 2019',
-       y = 'Região de Governo',
+  labs(x = 'DiferenÃ§a % entre a remuneraÃ§Ã£o de homens e mulheres entre 2003 e 2019',
+       y = 'RegiÃ£o de Governo',
        title = '',
        subtitle = '',
        caption = '')
@@ -235,11 +236,11 @@ g2 = ggplot(sex_panel) +
            axis.text.x = element_blank(),
            panel.grid.major.y = element_line(linetype = 'dotted'))+
      labs(
-       x = 'Diferença % entre a remuneração de homens e mulheres em 2003 e 2019',
-       y = 'Região de Governo',
+       x = 'DiferenÃ§a % entre a remuneraÃ§Ã£o de homens e mulheres em 2003 e 2019',
+       y = 'RegiÃ£o de Governo',
        title = '',
        subtitle = '',
-       caption = 'Direção da seta indica a evolução de 2003 para 2019'
+       caption = 'DireÃ§Ã£o da seta indica a evoluÃ§Ã£o de 2003 para 2019'
      ) 
    
    g2

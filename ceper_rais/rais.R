@@ -7,7 +7,7 @@ library(tmap)
 library(readxl)
 
 
-# carregar shape file das regiões de governo
+# carregar shape file das regioes de governo
 
 load('regions.rda')
 region = polygons_regioes_gov_sp
@@ -15,11 +15,10 @@ region = polygons_regioes_gov_sp
 rm(polygons_regioes_gov_sp)
 
 
+### Mapas:  salario por faixa etaria ----
 
 
 
-## dados da rais
-# por faixa etária
 
 idade = read_xlsx('rais.xlsx', sheet = 5)
 idade = data.frame(idade)
@@ -28,14 +27,14 @@ idade = data.frame(idade)
 old_n = colnames(idade)
 
 
-new_n =  c('Região', '10 a 14 anos', '15 a 17 anos',
+new_n =  c('Regiaoo', '10 a 14 anos', '15 a 17 anos',
                     '18 a 20 anos', '25 a 29 anos', 
                     '30 a 39 anos', '40 a 49 anos',
                     '50 a 64 anos', 'Mais de 65 anos', 'Total')
 
 
-### mapas  salário por faixa etária
 
+# funcao mapas ----
 
 map = function(df, name){
   for(i in 2:length(df)){
@@ -50,7 +49,9 @@ map = function(df, name){
     legend.text.size = 1,
     frame = T,
     legend.format = list(text.separator = "-", 
-                         fun=function(x) formatC(x, digits=0, format="d")))
+                         fun=function(x) formatC(x, digits=0, 
+                                                 format="d",
+                                                 decimal.mark = ',')))
   nam =  paste("G_", i, sep = "")
   assign(nam, g1)
   tmap_save(g1, filename = paste("G_", i, ".png", sep = "") )
@@ -71,7 +72,7 @@ sex = data.frame(sex)
 
 
 
-new_n2 =  c('Região', 'Masculino', 'Feminino', 'Total')
+new_n2 =  c('Regiao', 'Masculino', 'Feminino', 'Total')
 
 map(sex, new_n2)
 
@@ -86,11 +87,12 @@ esc = read_xlsx('rais.xlsx', sheet = 2)
 esc = data.frame(esc)
 
 
-new_n3 = c("Região", "Analfabeto",  "Até 5ª Incompleto",
+new_n3 = c("Regiao", "Analfabeto",  "Até 5ª Incompleto",
            "5ª Completo Fundamental", "6ª a 9ª Fundamental",
            "Fundamental Completo" , "Médio Incompleto", "Médio Completo",
-            "Superior Incompleto",  "Superior Completo", "Mestrado",                 
+           "Superior Incompleto",  "Superior Completo", "Mestrado",                 
            "Doutorado", "Total" )                   
+
 
 
 
