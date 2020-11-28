@@ -17,6 +17,19 @@ region = polygons_regioes_gov_sp
 rm(polygons_regioes_gov_sp)
 
 
+region$regiao_governo = as.character(region$regiao_governo)
+
+region$regiao_governo[10] = c('B Paulista')
+region$regiao_governo[35:38] = c('S J B Vista', 'S J Barra', 'SJ Rio Preto',
+                                 'S J Campos')
+
+
+
+region = region[order(region$regiao_governo), ]
+
+
+# dados de genero
+
 sex = read_xlsx('evol.xlsx', sheet = 3)
 
 sex = data.frame(sex)
@@ -37,6 +50,9 @@ sex2$evol1 = abs(sex2[,'2019'] - sex2[,'2003'])
 
 sex2 = tibble(sex2)
 
+breaks <- seq(-45,15,5)
+
+
 sex2 =
   sex2 %>%
   mutate(group = .bincode(evol, breaks = breaks)) %>%
@@ -49,7 +65,6 @@ sex2 =
 # Diferenca salarial entre homens e mulheres (dotplot) ----
 
 
-breaks <- seq(-45,15,5)
 palette <- c(reds_full[2:4], blues_full[3:8])
 
 
@@ -61,8 +76,8 @@ g4 = ggplot(sex2) +
   geom_vline(xintercept = 0, col = 'darkred', alpha = 0.5) +
   custom_theme() +
   theme(legend.position = 'none') +
-  labs(x = 'DiferenÃ§a % entre a remuneraÃ§Ã£o mÃ©dia de homens e mulheres entre 2003 e 2019',
-       y = 'RegiÃ£o de Governo',
+  labs(x = 'Diferença % entre a remuneração média de homens e mulheres entre 2003 e 2019',
+       y = 'Região de Governo',
        title = '',
        subtitle = '',
        caption = '')

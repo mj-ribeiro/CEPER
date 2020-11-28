@@ -9,12 +9,24 @@ library(readxl)
 library("cagedExplorer")
 
 
-# carregar shape file das regiÃƒÂµes de governo ---------
+# carregar shape file das regioes de governo ---------
 
 load('regions.rda')
 region = polygons_regioes_gov_sp
 
 rm(polygons_regioes_gov_sp)
+
+
+region$regiao_governo = as.character(region$regiao_governo)
+
+region$regiao_governo[10] = c('B Paulista')
+region$regiao_governo[35:38] = c('S J B Vista', 'S J Barra', 'SJ Rio Preto',
+                                 'S J Campos')
+
+
+
+region = region[order(region$regiao_governo), ]
+
 
 
 
@@ -27,13 +39,16 @@ map = function(df, name){
     region$var = df[,i]
     
     g1 = tm_shape(region) +
-      tm_polygons('var', title = name[i],  textNA = 'Sem dados') +
+      tm_polygons('var',
+                  title = name[i], 
+                  textNA = 'Sem dados',
+                  palette =  "Reds") +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
       tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
       tm_layout(
         legend.text.size = 1,
         frame = T,
-        legend.format = list(text.separator = "-", 
+        legend.format = list(text.separator = "a", 
                              fun=function(x) paste0(formatC(x, digits=2, format="f",
                                                             decimal.mark = ','), "%")) )
     nam =  paste("G_", i, sep = "")
@@ -43,7 +58,6 @@ map = function(df, name){
 }
 
 
-map(idade, new_n)
 
 
 # Mapas: faixa etaria  ----------
@@ -63,6 +77,7 @@ new_n =  c('Regiao', '10 a 14 anos', '15 a 17 anos',
            '50 a 64 anos', 'Mais de 65 anos', 'Total')
 
 
+map(idade, new_n)
 
 
 ##  Mapas:  sexo
@@ -76,7 +91,7 @@ sex[,2:6] = sex[,2:6]*100
 
 
 
-new_n2 =  c('RegiÃ£o', '2003', '2007', '2011', '2015', '2019')
+new_n2 =  c('Regiao', '2003', '2007', '2011', '2015', '2019')
 
 
 
@@ -96,13 +111,13 @@ esc = data.frame(esc)
 esc[,2:13] = esc[,2:13]*100
 
 
-colnames(esc)
 
-new_n3 = c("RegiÃ£o", "Analfabeto",  "AtÃ© 5Âª Incompleto",
-           "5Âª Completo Fundamental", "6Âª a 9Âª Fundamental",
-           "Fundamental Completo" , "MÃ©dio Incompleto", "MÃ©dio Completo",
+new_n3 = c("Regiao", "Analfabeto",  "Até 5ª Incompleto",
+           "5ª Completo Fundamental", "6ª a 9ª Fundamental",
+           "Fundamental Completo" , "Médio Incompleto", "Médio Completo",
            "Superior Incompleto",  "Superior Completo", "Mestrado",                 
            "Doutorado", "Total" )                   
+
 
 
 
