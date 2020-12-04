@@ -2,6 +2,8 @@
 #                                Estudo do  Saneamento
 #############################################################################################
 
+setwd("D:/Git projects/CEPER/ceper_san")
+
 
 library(sf)
 library(geobr)
@@ -76,8 +78,6 @@ df[df$mun=='Jundiaí'& df$ano==2007,'ite'] = 100
 sp = read_municipality(code_muni = 'SP')
 
 sp = sp[order(sp$name_muni), ]
-
-
 
 
 

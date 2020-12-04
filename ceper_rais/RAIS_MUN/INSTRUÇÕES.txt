@@ -1,0 +1,10 @@
+sexo: 
+1. (sexo_remuneração) diferença % entre homens e mulheres para os três anos da análise
+idade: 
+2. (idade_remuneração) remuneração pras faixas de idade para os três anos da análise; e
+3. (idade_população) a composição percentual pras faixas de idade para os três anos
+escolaridade:
+4. (escolaridade_remuneração) variação da remuneração - comparação entre 2010 e 2019
+5. (escolaridade_população) composição % da força de trabalho para 2010 e 2019
+cor/raça:
+6. (cor_raça_SP) rendimento por cor para 2010
