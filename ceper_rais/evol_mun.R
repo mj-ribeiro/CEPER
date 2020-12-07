@@ -235,7 +235,8 @@ cor1 = data.frame( cor1[order(cor1$muni), ] )
 
 n_cor1 = c('Total',	'Branca',	'Preta',
            'Amarela',	'Parda',
-           'Indígena',	'Sem declaração')
+           'Indígena',	'Sem declaração', 'Branca + Amarela',
+           'Negros')
 
 
 map(cor1, n_cor1, F)
@@ -244,6 +245,21 @@ map(cor1, n_cor1, F)
 
 
 
+# Dif salarial por cor_raça_SP ----
+# rendimento por cor para 2010
+
+
+cor_dif = read_xlsx('evol2_mun.xlsx', sheet = 'cor_dif')
+cor_dif = data.frame( cor_dif[order(cor_dif$muni), ] )
+cor_dif[2] = cor_dif[2]*100
+
+
+
+# map
+
+n_cor_dif = c('Diferença % salarial entre Brancos/Amarelos e Pretos/Pardos')
+
+map(cor_dif, n_cor_dif, T)
 
 
 
