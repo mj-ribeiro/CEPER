@@ -21,24 +21,47 @@ region = region[order(region$name_muni), ]
 # funcao ----
 
 
-map = function(df, name, p){
+mybreaks1 = c(-50, 0, 50, Inf)
+mybreaks2 = c(0, 1000, 2000, 3000, Inf)
+  
+  
+mylabels1 = c( 
+              '-50% a 0%', 
+              '1% a 50%',
+              'mais de 50%'
+               )
+
+
+mylabels2 = c('0 a 1000',
+               '1001 a 2000', 
+               '2001 a 3000',
+               '3001 ou mais')
+
+mycolor1 = c('beige', 'orange', 'red')                
+
+mycolor2 = c('beige', 'orange', 'darkorange2', 'darkorange4')
+
+
+map = function(df, name, br){
   for(i in 2:length(df)){
-    
     region$var = df[,i]
-    
+
     g1 = tm_shape(region) +
       tm_polygons('var',
                   title = name[i-1], 
+                  breaks = if(br==T){mybreaks1}else{mybreaks2},
+                  labels = if(br==T){mylabels1}else{mylabels2},
                   textNA = 'Sem dados',
-                  palette =  "Reds") +
+                  midpoint =NA,
+                  palette = if(br==T){mycolor1}else{mycolor2} ,
+                  style = "fixed",
+) +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
       tm_scale_bar(breaks = c(0, 100, 200, 300), text.size = 0.6) +
       tm_layout(
         legend.text.size = 1,
         frame = T,
-        legend.format = list(text.separator = "a", 
-                  fun=function(x) paste0(formatC(x, digits=2, format="f",
-                                      decimal.mark = ','), if(p==T){"%"})) )
+        )
     nam =  paste("G_", i, sep = "")
     assign(nam, g1)
     tmap_save(g1, filename = paste("G_", i, ".png", sep = "") )
@@ -61,7 +84,7 @@ sex[,2:4] = sex[,2:4]*100
 
 n_sex = c('2019',	'2010',	'2002')
 
-map(sex, n_sex )
+map(sex, n_sex, br=T )
 
 
 
