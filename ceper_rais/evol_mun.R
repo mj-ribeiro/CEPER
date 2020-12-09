@@ -49,11 +49,11 @@ map = function(df, name, br){
     g1 = tm_shape(region) +
       tm_polygons('var',
                   title = name[i-1], 
-                  breaks = if(br==T){mybreaks1}else{mybreaks2},
-                  labels = if(br==T){mylabels1}else{mylabels2},
+                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2},
+                  labels = if(br==1){mylabels1}else if(br==2){mylabels2},
                   textNA = 'Sem dados',
                   midpoint =NA,
-                  palette = if(br==T){mycolor1}else{mycolor2} ,
+                  palette = if(br==1){mycolor1}else if(br==2){mycolor2} ,
                   style = "fixed",
 ) +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
@@ -84,7 +84,7 @@ sex[,2:4] = sex[,2:4]*100
 
 n_sex = c('2019',	'2010',	'2002')
 
-map(sex, n_sex, br=T )
+map(sex, n_sex, br=1 )
 
 
 
@@ -100,8 +100,8 @@ idade_rem_02 = data.frame( idade_rem_02[order(idade_rem_02$Município), ] )
 
 # map
 
-n_id_rem_02 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_rem_02, n_id_rem_02, F)
+n_id_rem_02 = c('18 a 29 anos', '30 a 64 anos', '65 anos ou mais')
+map(idade_rem_02, n_id_rem_02, 2)
 
 
 
@@ -114,8 +114,8 @@ idade_rem_10 = data.frame( idade_rem_10[order(idade_rem_10$Município), ] )
 
 # map
 
-n_id_rem_10 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_rem_10, n_id_rem_10, F)
+n_id_rem_10 = c('18 a 29 anos', '30 a 64 anos', '65 anos ou mais')
+map(idade_rem_10, n_id_rem_10, 2)
 
 
 
@@ -127,8 +127,8 @@ idade_rem_19 = data.frame( idade_rem_19[order(idade_rem_19$Município), ] )
 
 # map
 
-n_id_rem_19 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_rem_19, n_id_rem_19, F)
+n_id_rem_19 = c('18 a 29 anos', '30 a 64 anos', '65 anos ou mais')
+map(idade_rem_19, n_id_rem_19, 2)
 
 
 
