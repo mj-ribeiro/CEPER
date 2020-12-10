@@ -18,17 +18,17 @@ region = region[order(region$name_muni), ]
 
 
 
-# funcao ----
+# breaks  ----
 
 
-mybreaks1 = c(-50, 0, 50, Inf)
+mybreaks1 = c(-50, -25, 0, 25, Inf)
 mybreaks2 = c(0, 1000, 2000, 3000, Inf)
+mybreaks3 = c(0, 10, 20, 30, 40, 50, 60, Inf)  
   
-  
-mylabels1 = c( 
-              '-50% a 0%', 
-              '1% a 50%',
-              'mais de 50%'
+mylabels1 = c( '-50% a -25%',
+              '-24% a 0%', 
+              '1% a 25%',
+              'mais de 25%'
                )
 
 
@@ -37,9 +37,23 @@ mylabels2 = c('0 a 1000',
                '2001 a 3000',
                '3001 ou mais')
 
-mycolor1 = c('beige', 'orange', 'red')                
+mylabels3 = c('0% a 10%',
+              '11% a 20%',
+              '21% a 30%',
+              '31% a 40%',
+              '41% a 50%',
+              '51% a 60%',
+              'mais de 60%')
 
+library('broman')
+
+
+mycolor1 =c('beige', 'orange', 'darkorange2', 'darkorange4')               
 mycolor2 = c('beige', 'orange', 'darkorange2', 'darkorange4')
+
+mycolor3 = 'Reds'
+
+
 
 
 map = function(df, name, br){
@@ -49,11 +63,11 @@ map = function(df, name, br){
     g1 = tm_shape(region) +
       tm_polygons('var',
                   title = name[i-1], 
-                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2},
-                  labels = if(br==1){mylabels1}else if(br==2){mylabels2},
+                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2}else if(br==3){mybreaks3},
+                  labels = if(br==1){mylabels1}else if(br==2){mylabels2}else if(br==3){mylabels3},
                   textNA = 'Sem dados',
                   midpoint =NA,
-                  palette = if(br==1){mycolor1}else if(br==2){mycolor2} ,
+                  palette = if(br==1){mycolor1}else if(br==2){mycolor2}else if(br==3){mycolor3},
                   style = "fixed",
 ) +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
@@ -145,8 +159,8 @@ idade_pop_02[,2:4] = idade_pop_02[,2:4]*100
 
 # map
 
-n_id_pop_02 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_pop_02, n_id_pop_02, T)
+n_id_pop = c('18 a 29 anos', '30 a 64 anos', '65 anos ou mais')
+map(idade_pop, n_id_pop_02, 3)
 
 
 # 2010
@@ -158,8 +172,7 @@ idade_pop_10[,2:4] = idade_pop_10[,2:4]*100
 
 # map
 
-n_id_pop_10 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_pop_10, n_id_pop_10, T)
+map(idade_pop_10, n_id_pop, 3)
 
 
 
@@ -172,8 +185,7 @@ idade_pop_19[,2:4] = idade_pop_19[,2:4]*100
 
 # map
 
-n_id_pop_19 = c('18 a 29', '30 a 64', '65 ou mais')
-map(idade_pop_19, n_id_pop_19, T)
+map(idade_pop_19, n_id_pop, 3)
 
 
 
