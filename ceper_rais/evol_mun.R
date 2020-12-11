@@ -25,6 +25,16 @@ mybreaks1 = c(-50, -25, 0, 25, Inf)
 mybreaks2 = c(0, 1000, 2000, 3000, Inf)
 mybreaks3 = c(0, 10, 20, 30, 40, 50, 60, Inf)  
   
+mybreaks4 = c(-100, -50, 0, 50, 100, Inf) 
+
+mybreaks5 = c(0, 10, 20, 30, 40, 50, Inf)
+mybreaks6 = c(0, 1000, 2000, 3000, 4000, Inf)
+
+mybreaks7 = c(20, 40, 60, 80, Inf) 
+
+
+# labels ----  
+  
 mylabels1 = c( '-50% a -25%',
               '-24% a 0%', 
               '1% a 25%',
@@ -45,15 +55,54 @@ mylabels3 = c('0% a 10%',
               '51% a 60%',
               'mais de 60%')
 
-library('broman')
+mylabels4 = c('-100% a -50%', 
+              '-49% a 0%',
+              '1% a 50%', 
+              '51% a 100%',
+              'mais de 100%')
+
+
+
+mylabels5 = c('0% a 10%',
+              '11% a 20%',
+              '21% a 30%',
+              '31% a 40%',
+              '41% a 50%',
+              'mais de 50%')
+
+mylabels6 = c('0 a 1000', 
+              '1001 a 2000',
+              '2001 a 3000',
+              '3001 a 4000',
+              'mais de 4000')
+  
+  
+  
+  
+mylabels7 = c('20% a 40%',
+              '41% a 60%',
+              '61% a 80%',
+              'mais de 80%')
+              
+              
+  
+  
+
+
+# colors ----
 
 
 mycolor1 =c('beige', 'orange', 'darkorange2', 'darkorange4')               
 mycolor2 = c('beige', 'orange', 'darkorange2', 'darkorange4')
 
 mycolor3 = 'Reds'
+mycolor4  = c('beige', 'orange', 'darkorange1', 'darkorange3', 'darkorange4')
 
+mycolor5 = c('beige', 'burlywood1', 'orange', 'darkorange1', 'darkorange3', 'darkorange4')
 
+mycolor6 = c('beige', 'burlywood1', 'orange', 'darkorange1', 'darkorange4')
+
+mycolor7 = c('beige', 'burlywood1', 'orange', 'darkorange4')
 
 
 map = function(df, name, br){
@@ -63,11 +112,11 @@ map = function(df, name, br){
     g1 = tm_shape(region) +
       tm_polygons('var',
                   title = name[i-1], 
-                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2}else if(br==3){mybreaks3},
-                  labels = if(br==1){mylabels1}else if(br==2){mylabels2}else if(br==3){mylabels3},
+                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2}else if(br==3){mybreaks3}else if(br==4){mybreaks4}else if(br==5){mybreaks5}else if(br==6){mybreaks6}else if(br==7){mybreaks7},
+                  labels = if(br==1){mylabels1}else if(br==2){mylabels2}else if(br==3){mylabels3}else if(br==4){mylabels4}else if(br==5){mylabels5}else if(br==6){mylabels6}else if(br==7){mylabels7},
                   textNA = 'Sem dados',
                   midpoint =NA,
-                  palette = if(br==1){mycolor1}else if(br==2){mycolor2}else if(br==3){mycolor3},
+                  palette = if(br==1){mycolor1}else if(br==2){mycolor2}else if(br==3){mycolor3}else if(br==4){mycolor4}else if(br==5){mycolor5}else if(br==6){mycolor6}else if(br==7){mycolor7},
                   style = "fixed",
 ) +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
@@ -209,7 +258,7 @@ n_esc_rem = c('Analfabeto',	'Fundamental Completo',
               'Total')
 
 
-map(esc_rem, n_esc_rem, T)
+map(esc_rem, n_esc_rem, 4)
 
 
 
@@ -228,11 +277,11 @@ esc_pop_10[,2:5] = esc_pop_10[,2:5]*100
 # map
 
 
-n_esc_pop_10 = c('Analfabeto',	'Fundamental Completo',
+n_esc_pop = c('Analfabeto',	'Fundamental Completo',
               'Médio Completo',	'Superior Completo')
 
 
-map(esc_pop_10, n_esc_pop_10, T)
+map(esc_pop_10, n_esc_pop, 5)
 
 
 
@@ -248,11 +297,8 @@ esc_pop_19[,2:5] = esc_pop_19[,2:5]*100
 # map
 
 
-n_esc_pop_19 = c('Analfabeto',	'Fundamental Completo',
-                 'Médio Completo',	'Superior Completo')
+map(esc_pop_19, n_esc_pop, 5)
 
-
-map(esc_pop_19, n_esc_pop_19, T)
 
 
 
@@ -274,7 +320,7 @@ n_cor1 = c('Total',	'Branca',	'Preta',
            'Negros')
 
 
-map(cor1, n_cor1, F)
+map(cor1, n_cor1, 6)
 
 
 
@@ -292,9 +338,9 @@ cor_dif[2] = cor_dif[2]*100
 
 # map
 
-n_cor_dif = c('Diferença % salarial entre Brancos/Amarelos e Pretos/Pardos')
+n_cor_dif = c('Proporção do salário dos negros \n em relação aos brancos')
 
-map(cor_dif, n_cor_dif, T)
+map(cor_dif, n_cor_dif, 7)
 
 
 
