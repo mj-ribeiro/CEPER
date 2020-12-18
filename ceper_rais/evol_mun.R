@@ -102,28 +102,38 @@ mycolor7 = c('darkorange4', 'orange', 'burlywood1','beige')
 
 
 
-
 mybreaks3 = function(i){
-  ifelse(i==2, mybreaks3.1, 
-         ifelse(i==3, mybreaks3.2, 
-                ifelse(i==4, mybreaks3.3, mybreaks3.3 )))
-}
+    if(i==2){
+      mybreaks3.1
+    }else if(i==3){
+    mybreaks3.2
+    }else if(i==4){
+     mybreaks3.3
+      }
+  }
 
 
-mybreaks3.1 = c(0, 10, 20, 30, 40, Inf)
-mybreaks3.2 = c(40, 50, 60, 70, Inf)
-mybreaks3.3 = c(0, 2, 4, 6, Inf)
 
 
-mybreaks3(3)
+mybreaks3.1 = c(0,  10, 20, 30, 40, Inf)
+mybreaks3.2 = c(40, 50, 60, 70, 80,  Inf)
+
+mybreaks3.3 = c(0, 1, 2, 3, 4, Inf)
+
+
 
 
 
 mylabels3 = function(i){
-  ifelse(i==2, mylabels3.1, 
-         ifelse(i==3, mylabels3.2, 
-                ifelse(i==4, mylabels3.3, mylabels3.3 )))
+        if(i==2){
+          mylabels3.1
+        }else if(i==3){
+          mylabels3.2
+        }else if(i==4){
+          mylabels3.3
+        }
 }
+
 
 mylabels3.1 = c('0% a 10%',
                 '11% a 20%',
@@ -140,19 +150,12 @@ mylabels3.2 = c('40% a 50%',
 
 
 mylabels3.3 = c('0% a 1%',
-                '2% a 3%',
-                '4% a 5%',
-                '6% a 7%',
-                'mais de 7%')
+                '1,1% a 2%',
+                '2,1% a 3%',
+                '3,1% a 4%',
+                'mais de 4%')
 
 
-
-
-mycolors3 = function(i){
-  ifelse(i==2, mycolors3.1, 
-         ifelse(i==3, mycolors3.2, 
-                ifelse(i==4, mycolors3.3, mycolors3.3 )))
-}
 
 
 
