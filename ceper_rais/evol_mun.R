@@ -92,17 +92,75 @@ mylabels7 = c('20% a 40%',
 # colors ----
 
 
-mycolor1 =c('beige', 'orange', 'darkorange2', 'darkorange4')               
-mycolor2 = c('beige', 'orange', 'darkorange2', 'darkorange4')
-
+mycolor1 =c('darkorange4', 'darkorange2', 'orange', 'beige')               
+mycolor2 = c('darkorange4', 'orange', 'burlywood1','beige')
 mycolor3 = 'Reds'
-mycolor4  = c('beige', 'orange', 'darkorange1', 'darkorange3', 'darkorange4')
+mycolor4  = c('darkorange4','darkorange3', 'darkorange1',  'orange', 'beige')
+mycolor5 = c('darkorange4','darkorange3', 'darkorange1',  'orange', 'burlywood1', 'beige')
+mycolor6 = c('darkorange4', 'darkorange1', 'orange', 'burlywood1','beige')
+mycolor7 = c('darkorange4', 'orange', 'burlywood1','beige')
 
-mycolor5 = c('beige', 'burlywood1', 'orange', 'darkorange1', 'darkorange3', 'darkorange4')
 
-mycolor6 = c('beige', 'burlywood1', 'orange', 'darkorange1', 'darkorange4')
 
-mycolor7 = c('beige', 'burlywood1', 'orange', 'darkorange4')
+
+mybreaks3 = function(i){
+  ifelse(i==2, mybreaks3.1, 
+         ifelse(i==3, mybreaks3.2, 
+                ifelse(i==4, mybreaks3.3, mybreaks3.3 )))
+}
+
+
+mybreaks3.1 = c(0, 10, 20, 30, 40, Inf)
+mybreaks3.2 = c(40, 50, 60, 70, Inf)
+mybreaks3.3 = c(0, 2, 4, 6, Inf)
+
+
+mybreaks3(3)
+
+
+
+mylabels3 = function(i){
+  ifelse(i==2, mylabels3.1, 
+         ifelse(i==3, mylabels3.2, 
+                ifelse(i==4, mylabels3.3, mylabels3.3 )))
+}
+
+mylabels3.1 = c('0% a 10%',
+                '11% a 20%',
+                '21% a 30%',
+                '31% a 40%',
+                'mais de 40%')
+
+
+mylabels3.2 = c('40% a 50%',
+                '51% a 60%',
+                '61% a 70%',
+                '71% a 80%',
+                'mais de 80%')
+
+
+mylabels3.3 = c('0% a 1%',
+                '2% a 3%',
+                '4% a 5%',
+                '6% a 7%',
+                'mais de 7%')
+
+
+
+
+mycolors3 = function(i){
+  ifelse(i==2, mycolors3.1, 
+         ifelse(i==3, mycolors3.2, 
+                ifelse(i==4, mycolors3.3, mycolors3.3 )))
+}
+
+
+
+mycolor3.0 = c('darkorange4', 'darkorange1', 'orange', 'burlywood1','beige')
+
+
+
+
 
 
 map = function(df, name, br){
@@ -112,11 +170,11 @@ map = function(df, name, br){
     g1 = tm_shape(region) +
       tm_polygons('var',
                   title = name[i-1], 
-                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2}else if(br==3){mybreaks3}else if(br==4){mybreaks4}else if(br==5){mybreaks5}else if(br==6){mybreaks6}else if(br==7){mybreaks7},
-                  labels = if(br==1){mylabels1}else if(br==2){mylabels2}else if(br==3){mylabels3}else if(br==4){mylabels4}else if(br==5){mylabels5}else if(br==6){mylabels6}else if(br==7){mylabels7},
+                  breaks = if(br==1){mybreaks1}else if(br==2){mybreaks2}else if(br==3){mybreaks3(i)}else if(br==4){mybreaks4}else if(br==5){mybreaks5}else if(br==6){mybreaks6}else if(br==7){mybreaks7},
+                  labels = if(br==1){mylabels1}else if(br==2){mylabels2}else if(br==3){mylabels3(i)}else if(br==4){mylabels4}else if(br==5){mylabels5}else if(br==6){mylabels6}else if(br==7){mylabels7},
                   textNA = 'Sem dados',
                   midpoint =NA,
-                  palette = if(br==1){mycolor1}else if(br==2){mycolor2}else if(br==3){mycolor3}else if(br==4){mycolor4}else if(br==5){mycolor5}else if(br==6){mycolor6}else if(br==7){mycolor7},
+                  palette = if(br==1){mycolor1}else if(br==2){mycolor2}else if(br==3){mycolor3.0}else if(br==4){mycolor4}else if(br==5){mycolor5}else if(br==6){mycolor6}else if(br==7){mycolor7},
                   style = "fixed",
 ) +
       tm_compass(type = "8star", position = c("right", "bottom", size = 0.0)) +
@@ -133,7 +191,7 @@ map = function(df, name, br){
 
 
 
-# sex ---- 
+# 1 - sex ---- 
 # diferenca % entre homens e mulheres para os tres anos da analise
 
 
@@ -151,9 +209,9 @@ map(sex, n_sex, br=1 )
 
 
 
-# idade remuneracao ----
+# 2 - idade remuneracao ----
 
-# remuneracao pras faixas de idade para os tres anos da analise
+#  remuneracao pras faixas de idade para os tres anos da analise
 
 # 2002
 
@@ -195,7 +253,7 @@ map(idade_rem_19, n_id_rem_19, 2)
 
 
 
-# idade_população  ----
+# 3 - idade_população  ----
 
 # a composição percentual pras faixas de idade para os três anos escolaridade
 
@@ -206,10 +264,12 @@ idade_pop_02 = data.frame( idade_pop_02[order(idade_pop_02$Município), ] )
 idade_pop_02[,2:4] = idade_pop_02[,2:4]*100
 
 
+
+
 # map
 
 n_id_pop = c('18 a 29 anos', '30 a 64 anos', '65 anos ou mais')
-map(idade_pop, n_id_pop_02, 3)
+map(idade_pop_02, n_id_pop, 3)
 
 
 # 2010
@@ -239,7 +299,7 @@ map(idade_pop_19, n_id_pop, 3)
 
 
 
-# escolaridade_remuneracao ----
+# 4 - escolaridade_remuneracao ----
 # variacao da remuneracao - comparacao entre 2010 e 2019
 
 
@@ -262,7 +322,7 @@ map(esc_rem, n_esc_rem, 4)
 
 
 
-# escolaridade populacao ----
+# 5 - escolaridade populacao ----
 # composição % da forca de trabalho para 2010 e 2019
 
 
@@ -302,7 +362,7 @@ map(esc_pop_19, n_esc_pop, 5)
 
 
 
-# cor_raça_SP ----
+# 6 - cor_raça_SP ----
 # rendimento por cor para 2010
 
 
@@ -326,7 +386,7 @@ map(cor1, n_cor1, 6)
 
 
 
-# Dif salarial por cor_raça_SP ----
+# 7 - Dif salarial por cor_raça_SP ----
 # rendimento por cor para 2010
 
 
