@@ -201,7 +201,7 @@ g1 = g0 + geom_histogram(position = 'dodge',
                  breaks=seq(0, 100, 10),
                  binwidth=12) +
   scale_x_continuous(breaks=seq(0,100,10)) +
-  ylab('Quantidade de munic?pios') +
+  ylab('Quantidade de municípios') +
   xlab('Índices') +
   theme_minimal() +
   facet_wrap(vars(?ndice)) +

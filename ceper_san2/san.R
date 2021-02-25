@@ -70,21 +70,31 @@ sp[pos, 'name_muni']
 
 
 
-df$ano_==2001
 
 # maps ----
 
 
+mybreaks = seq(0, 100, 20)
+
+mylabel = c('0% a 20%',
+            '20% a 40%',
+            '40% a 60%',
+            '60% a 80%',
+            '80% a 100%'
+            )
+
+mycolors = c('beige','burlywood1','orange','darkorange1', 'darkorange3')
+
+
 maps_f = function(x, leg){
-  #for (i in 0:18) {
-  #  filt = df$ano == (2000+i)
     sp$var = df[ ,x ]
-    
     g1 =  tm_shape(sp) +
       tm_polygons('var',  
                   title=toupper(leg),  
                   textNA = 'Sem dados',
-                  breaks = c(0, 25, 50, 75, 100)) +
+                  breaks = mybreaks,
+                  label = mylabel,
+                  palette=mycolors) +
       tm_compass(type = "8star",
                  position = c("right", "bottom", size = 0.0)) +
       tm_scale_bar(text.size = 0.6) +
@@ -95,18 +105,15 @@ maps_f = function(x, leg){
     nam =  paste("G_", sep = "")
     assign(nam, g1)
     tmap_save(g1, filename = paste("G_",leg,  ".png", sep = "") )
-#}
 }
 
 
 
+pnames()
 
-maps_f('IN015', 'ice')
+maps_f('IN016', 'ite')
 
-summary(df$IN015)
-
-
-
+summary(df$IN016)
 
 
 
@@ -114,16 +121,80 @@ summary(df$IN015)
 
 
 
+## Histogram ----
+
+
+pnames()
+
+df2 =  df[c('IN015', 'IN016')]
+
+
+data = melt(data = df2)
+
+colnames(data)[1] = 'Índice'
 
 
 
 
+g0 = ggplot(data = data, aes(x=value, fill=Índice)) 
+
+g1 = g0 + geom_histogram(position = 'dodge',
+                         colour='black',
+                         breaks=seq(0, 100, 10),
+                         binwidth=12) +
+  scale_x_continuous(breaks=seq(0,100,10)) +
+  ylab('Quantidade de municípios') +
+  xlab('Índices') +
+  theme_minimal() +
+  facet_wrap(vars(Índice)) +
+  theme(strip.text.x = element_blank()) +
+  stat_bin( breaks=seq(0,100,10), binwidth=12, geom='text', color='black', aes(label=..count..),
+            vjust=-0.5, hjust=0.5 ) +
+  scale_fill_discrete( labels = c("ICE", "ITE"))
+
+g1
+
+
+ggsave('g1.png')
+
+
+# iata ----
 
 
 
+df3 = data.frame( df[, c('IN055')] )
+
+
+df3$Índice = rep('IATA', nrow(df3))
+
+colnames(df3)[1] = 'IATA'
 
 
 
+g2 = ggplot(data = df3, aes(x=IATA)) 
+
+
+g3 = g2 +  geom_histogram(fill='red',
+                          position = 'dodge',
+                          colour='black',
+                          breaks=seq(0, 100, 10),
+                          binwidth=12,) +
+  scale_x_continuous(breaks=seq(0,100,10)) +
+  ylab('Quantidade de municípios') +
+  xlab('IATA') +
+  theme_minimal() +
+  stat_bin( breaks=seq(0,100,10), binwidth=12, 
+            geom='text', 
+            color='black', 
+            aes(label=..count..),
+            vjust=-0.5, hjust=0.5 ) 
+
+
+
+g3
+
+
+ggsave('g3.png', width = 6, height = 4)
 
 
 
