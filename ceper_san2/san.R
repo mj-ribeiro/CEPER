@@ -25,7 +25,15 @@ df = read_xlsx('dados.xlsx')
 df = as.data.frame(df)
 
 
-str(df)
+
+df$my_var = ifelse(df$my_var==1, 'Sabesp', 
+                  ifelse(df$my_var==2, 'Autarquia empresa púb.',
+                         ifelse(df$my_var==3, 'Empresa privada adm púb.',
+                                ifelse(df$my_var==4, 'Sociedade de economia mista com adm. púb.',
+                                       ifelse(df$my_var==5, 'Autarquia',df$my_va )))))
+
+
+table(df$my_var)
 
 ## rename ----
 
@@ -35,6 +43,7 @@ substr(or_names, 1, 5)   # slice string
 
 new_names = trimws( substring(or_names, 1, 5)) # remove white space in string
 
+colnames(df) = new_names
 
 
 ## print old and new names ----
@@ -49,12 +58,11 @@ pnames = function(){
 
 pnames()
 
-colnames(df) = new_names
-
 
 
 
 # geocode ----
+
 
 sp = read_municipality(code_muni = 'SP')
 
@@ -111,12 +119,9 @@ maps_f = function(x, leg){
 
 pnames()
 
-maps_f('IN016', 'ite')
+maps_f('IN024', 'iatera')
 
-summary(df$IN016)
-
-
-
+summary(df$IN024)
 
 
 
@@ -162,7 +167,7 @@ ggsave('g1.png')
 
 
 
-df3 = data.frame( df[, c('IN055')] )
+df3 = data.frame( df[ ,c('IN055') ] )
 
 
 df3$Índice = rep('IATA', nrow(df3))
@@ -193,7 +198,6 @@ g3 = g2 +  geom_histogram(fill='red',
 
 g3
 
-
 ggsave('g3.png', width = 6, height = 4)
 
 
@@ -201,5 +205,40 @@ ggsave('g3.png', width = 6, height = 4)
 
 
 
+# Histogram por prestador ---- 
 
 
+df4 = data.frame( df[ ,c('IN055', 'my_va') ] )
+
+df4$my_va = as.factor(df4$my_va)
+
+colnames(df4) = c('IATA', 'my_va')
+
+
+g4 = ggplot(data=df4, aes(x=IATA, fill=my_va, color=my_va ) )
+
+g5 = g4 + geom_histogram(bins=30, alpha=0.5) +
+  theme(axis.text.x = element_text( hjust = 1, size=20), 
+        axis.text.y = element_text(size=20), 
+        axis.title.x = element_text(colour = 'black', size=21),
+        axis.title.y = element_text(colour = 'black', size=21),
+        legend.text = element_text(size = 18),
+        legend.position="bottom", 
+        legend.title = element_blank()) +
+ # ylim(0, 100) +
+  labs(x = 'Índice de atendimento total de água',
+       y = 'Número de municípios') 
+
+
+
+g5
+
+ggsave('g5.png', width = 12, height = 6)
+
+ 
+ 
+
+ 
+ 
+ 
+ 
