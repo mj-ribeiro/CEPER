@@ -59,6 +59,7 @@ pnames = function(){
 pnames()
 
 
+summary(df$IN055)
 
 
 # geocode ----
@@ -82,13 +83,18 @@ sp[pos, 'name_muni']
 # maps ----
 
 
-mybreaks = seq(0, 100, 20)
+mybreaks = seq(0, 100, 10)
 
-mylabel = c('0% a 20%',
-            '20% a 40%',
-            '40% a 60%',
-            '60% a 80%',
-            '80% a 100%'
+mylabel = c('0% a 10%',
+            '10% a 20%',
+            '20% a 30%',
+            '30% a 40%',
+            '40% a 50%',
+            '50% a 60%',
+            '60% a 70%',
+            '70% a 80%',
+            '80% a 90%',
+            '90% a 100%'
             )
 
 mycolors = c('beige','burlywood1','orange','darkorange1', 'darkorange3')
@@ -102,7 +108,7 @@ maps_f = function(x, leg){
                   textNA = 'Sem dados',
                   breaks = mybreaks,
                   label = mylabel,
-                  palette=mycolors) +
+                  palette='Reds') +
       tm_compass(type = "8star",
                  position = c("right", "bottom", size = 0.0)) +
       tm_scale_bar(text.size = 0.6) +
@@ -117,11 +123,12 @@ maps_f = function(x, leg){
 
 
 
+
 pnames()
 
-maps_f('IN024', 'iatera')
+maps_f('IN056', 'iatera')
 
-summary(df$IN024)
+summary(df$IN015)
 
 
 
@@ -160,7 +167,7 @@ g1 = g0 + geom_histogram(position = 'dodge',
 g1
 
 
-ggsave('g1.png')
+ggsave('g1.png', , width = 6, height = 4)
 
 
 # iata ----
@@ -236,6 +243,15 @@ g5
 ggsave('g5.png', width = 12, height = 6)
 
  
+
+
+
+
+
+
+
+
+
  
 
  
