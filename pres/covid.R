@@ -1,6 +1,7 @@
 
 ############### Alien Economista
 
+# ver https://analisemacro.com.br/blog/
 
 setwd("D:/Git projects/CEPER/pres")
 
@@ -152,7 +153,7 @@ br$dead = df$mortes
 
 mybreaks3 = c(seq(0, 3e4, 1e4), Inf)
 mycolors3 = c('beige', 'burlywood1', 'orange', 'darkorange3')
-mylabes3 = c('0 a 10000',
+mylabes3 = c('0 a 10.000',
              '10.000 a 20.000',
              '20.000 a 30.000',
              'Mais de 30.000')
