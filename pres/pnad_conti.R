@@ -4,6 +4,7 @@ setwd("D:/Git projects/CEPER/pres")
 
 
 library(PNADcIBGE)
+library(survey)
 
 
 # download da pnad contínua
@@ -14,14 +15,17 @@ library(PNADcIBGE)
 #                               design = T)
 
 
+
 vars =  c("UF", "V2007", "V2009", 
-          "V2010", "V3007", "VD3001", 
+          "V2010", "V3007", "VD3002", 
           "VD4001", "VD4002", "VD4020",
-          "VD4035")
+          "VD4035", 'VD4010', 'VD4036'
+          )
 
 dadosPNADc <- get_pnadc(year = 2020, 
                         quarter = 4, 
                         vars = vars)
+
 
 # renda média 
 
@@ -110,6 +114,47 @@ head(df)
 df
 
 #saveRDS(df, 'df.rds')
+
+
+
+prop =svymean(~as.factor(VD4010), subset(dadosPNADc, 
+        UF =='São Paulo'),
+        na.rm=T)
+
+
+
+sum(data.frame(prop)[,1] )
+
+
+
+
+
+
+# equação de salário 
+
+library(survey)
+
+# colocar setor, se está ou não empregado
+
+
+modeloLin <- svyglm( log(VD4020) ~ V2007 + V2009 + V2010
+                    + VD4035 + VD4036 + VD4010 + UF , dadosPNADc)
+
+vars
+
+summary(modeloLin)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

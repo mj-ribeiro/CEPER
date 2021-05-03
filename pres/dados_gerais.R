@@ -53,7 +53,7 @@ get_data = function(x, d= "2015-01-01"){
 
 
 
-my_plot = function(x){
+my_plot = function(x, my_label, my_title){
   ativo = get_data(x)
   date = as.Date(index(ativo)) # pega o índice do bradesco
   ativo = tibble(date, ativo)
@@ -61,9 +61,10 @@ my_plot = function(x){
     filter(is.na(ativo)==F) %>%
     ggplot(aes(x=date, y=ativo)) +
     geom_line(size=1.2) +
-    scale_x_date("Data", breaks = "1 year", date_labels = " %y",  expand = c(0, 0)) +
-    scale_y_continuous("ativo") +
-    labs(title=('Evolução do número ')) +
+    scale_x_date("Data", breaks = "1 year", date_labels = " %Y") +
+    scale_y_continuous(my_label) +
+    theme_minimal() +
+    labs(title=my_title) +
     theme(plot.title = element_text(hjust = 0.5),
           title = element_text(size = 20),
           axis.text.x = element_text(angle =45,size = 17),
@@ -75,13 +76,21 @@ my_plot = function(x){
 
 
 
-my_plot('oil')
+g2 = my_plot('BZ=F', 
+        'Preço do Barril de Petróleo Brent (U$$)',
+        'Evolução do Preço do Barril de Petróleo \n Brent em dólares')
 
 
 
+g4 = my_plot('GC=F', 
+             'Preço do Ouro (U$$)',
+             'Evolução do preço do ouro, por onça troy, \n em dólares')
 
 
+ggsave('brent.png', g2, width = 10, height = 8)
 
+
+g3
 
 
 
