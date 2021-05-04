@@ -71,6 +71,9 @@ sp = sp[order(sp$name_muni), ]
 
 
 
+
+
+
 # verify if  town names are equal ----
 
 pos = sp$name_muni != df[order(df$muni), 'muni' ]
