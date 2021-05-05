@@ -52,9 +52,6 @@ summary(pca)
 df['pca'] = pca$scores[,1]
 
 
-test = df[order(df$pca, decreasing = T), 
-          c( 'name_muni', 'grupo', 'pca', "escolaridade", 'riqueza', 'longevidade')]
-
 
 # dotchart 1
 
@@ -110,6 +107,8 @@ dev.off()
 
 # dotchart 2 
 
+
+n = dim(df)[1] 
 
 pior = df[order(df$pca, decreasing = T), 
    c( 'name_muni', 'grupo', 'pca', "escolaridade", 'riqueza', 'longevidade')][(n-9):n,]
