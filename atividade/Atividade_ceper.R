@@ -46,14 +46,19 @@ stargazer::stargazer(s, summary=F,
 
 cor(dados[,-1])
 
-
+stargazer::stargazer(cor(dados[,-1]), summary = F,
+                     out='cor.tex', decimal.mark = ',',
+                     digits.extra=0, digits=2)
 
 # C ----
 
-
-plot(dados$mpg, dados$hp, xlab = 'MPG', pch=19, cex=2,
-     ylab='HP', col='blue', main='Mpg e Hp')
-
+setEPS()
+postscript("bar.eps", width=8, height=4)
+plot(dados$mpg, dados$hp, xlab = 'Milhas por galão',
+     pch=19, cex=2,
+     ylab='Potência bruta do motor',
+     col='darkred', main='Mpg e Hp')
+dev.off()
 
 
 
@@ -69,15 +74,28 @@ stargazer(reg, out='res.tex', float = F)
 
 # E ----
 
-
-plot(dados$mpg, dados$wt, xlab = 'MPG', pch=19, cex=2,
-     ylab='WT', col='blue', main='MPG e WT')
-
+setEPS()
+postscript("f2.eps", width=8, height=4)
+plot(dados$mpg, dados$wt, xlab = 'Milhas por galão', pch=19, cex=2,
+     ylab='Peso do veículo', col='darkred', main='Mpg e Wt')
+dev.off()
 
 
 
 # F ----
+setEPS()
+postscript("box.eps", width=8, height=4)
+boxplot(dados$mpg, col='darkred', main='Mpg')
+dev.off()
 
-boxplot(dados$mpg)
+
+
+
+cov(dados$disp, dados$carb)
+
+
+
+
+
 
 
