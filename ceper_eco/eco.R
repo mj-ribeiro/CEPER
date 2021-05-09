@@ -166,7 +166,7 @@ df2[df2$name_muni.x != df2$name_muni.y, c('name_muni.x','name_muni.y')]
 
 
 
-maps_f = function(sh, x, leg, fonte, breaks, labels, colors){
+maps_f = function(sh, x, leg, fonte, breaks=NULL, labels=NULL, colors){
   g1 =  tm_shape(sh) +
     tm_polygons(x,  
                 title=leg,  
@@ -212,6 +212,52 @@ maps_f(sh=df2, x='longevidade',
        breaks = mybreaks2,
        labels = mylabel2,
        colors = mycolors2)
+
+head(df2)
+
+table(df$grupo)
+
+
+# grupos ----
+
+
+maps_f(sh=df2, x='grupo',
+       leg='Grupos', 
+       fonte='A_',
+       colors = mycolors2)
+
+
+# Barplot ----
+
+g =  prop.table(table(df2$grupo))
+
+texto = paste(round(as.numeric(g)*100, 2), "%", sep='')
+
+setEPS()
+postscript("bar.eps", width=8, height=4)
+barplot(prop.table(table(df2$grupo)), 
+        col='darkred',
+        ylab = 'Porcentagem de municípios',
+        xlab = 'Grupos',
+        ylim = c( 0, 0.4),
+        width = 1,
+        cex.lab=1.2,
+        #names.arg = texto
+        )
+text(x=bb, y=as.numeric(g)+0.02, labels=texto, cex=1.2)
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -266,9 +312,6 @@ maps_f(sh=df2, x='escolaridade',
        breaks = mybreaks3,
        labels = mylabel3,
        colors = mycolors3)
-
-
-
 
 
 
