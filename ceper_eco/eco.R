@@ -53,23 +53,34 @@ df['pca'] = pca$scores[,1]
 
 
 
-# dotchart 1
+# dotchart 1 ----
 
 
 par(family = "mono", font=2)  # mudar a fonte
 
-options(OutDec= ",")         # colocar o separador decimal sendo vírgula
+options(OutDec= ".")         # colocar o separador decimal sendo vírgula
 
 
 
+melhor = df[order(df$pca, decreasing = T), ][1:10,]
 
-melhor = df[order(df$pca, decreasing = T), 
-   c( 'name_muni', 'pca', 'grupo')][1:10,]
+melhor = melhor[order(melhor$pca, decreasing = T), ]
 
-melhor = melhor[order(melhor$pca, decreasing = F), ]
+melhor = data.frame(melhor[,-1])
+
+colnames(melhor) = c('Município', 'Grupo', 'Riqueza',
+                     'Logevidade', 'Escolaridade', 'PCA')
+
+melhor
 
 
-melhor = data.frame(melhor)
+# Tabela 1 -----
+
+stargazer::stargazer(melhor,summary = F, out = 'best.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=2,
+                     rownames = F
+                     )
 
 
 
@@ -85,7 +96,6 @@ for (i in 1:length(comp0)) {
 melhor['concat2'] = paste(melhor$concat, melhor$grupo, sep= '')
 
 
-
 jpeg("dot1.jpg", width = 600,height = 400)
 
 par(family = "mono", font=2)  # mudar a fonte
@@ -96,8 +106,6 @@ dotchart(melhor$pca,
          pt.cex = 2,
          xlab = 'PCA')
 title('Municípios e Grupos do IPRS', outer = T, adj=0.05, line=-2.5)
-
-
 dev.off()
 
 
@@ -105,15 +113,32 @@ dev.off()
 
 
 
-# dotchart 2 
+# dotchart 2  ----
 
 
 n = dim(df)[1] 
 
-pior = df[order(df$pca, decreasing = T), 
-   c( 'name_muni', 'grupo', 'pca', "escolaridade", 'riqueza', 'longevidade')][(n-9):n,]
+pior = df[order(df$pca, decreasing = T), ][(n-9):n,]
 
-pior = data.frame(pior)
+pior = data.frame(pior[,-1])
+
+
+colnames(pior) = c('Município', 'Grupo', 'Riqueza',
+                     'Logevidade', 'Escolaridade', 'PCA')
+
+pior = pior[order(pior$PCA,decreasing = F),]
+
+
+
+
+
+# Tabela 2 -----
+
+stargazer::stargazer(pior,summary = F, out = 'worst.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=2,
+                     rownames = F
+)
 
 
 
@@ -129,10 +154,9 @@ for (i in 1:length(comp)) {
 pior['concat2'] = paste(pior$concat, pior$grupo, sep= '')
 
 
+
 jpeg("dot2.jpg", width = 600,height = 400)
-
 par(family = "mono", font=2)  # mudar a fonte
-
 dotchart(pior$pca, 
          pior$concat2, 
          pch=21,
