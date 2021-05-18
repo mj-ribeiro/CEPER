@@ -99,3 +99,5 @@ cov(dados$disp, dados$carb)
 
 
 
+
+
