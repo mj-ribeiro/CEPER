@@ -18,6 +18,10 @@ library(tidyverse)
 library(dplyr)
 
 
+library(expss)
+library(purrr)
+
+
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
@@ -28,13 +32,6 @@ setwd("D:/Git projects/CEPER/ceper_eco")
 crime = tibble(read.csv('crime.csv', sep=';',
                         header = T,
                         fileEncoding="UTF-8-BOM") )
-
-
-crime = crime %>%
-        filter(ano==2019)
-
-
-head(crime)
 
 
 
@@ -68,6 +65,70 @@ cad = cad%>%
 sp = read_municipality(code_muni='SP')
 
 
+
+
+# longevidade ----
+
+
+l1 = tibble(read.csv('dead_adult.csv', sep=';', header = T) )
+  
+l2 = tibble(read.csv('dead_child.csv', sep=';', header = T) )
+
+
+
+# saúde ----
+
+saude =  tibble(read.csv('saude.csv', sep=';', header = T) )
+
+
+
+# eletricidade
+
+
+elet = tibble(read.csv('elet.csv', sep=';', header = T) )
+
+
+
+
+# merge datasets
+
+
+df = list(elet, cad, crime, l1, l2, saude, snis) %>%
+          reduce(left_join, by='cod_muni')
+
+
+
+
+drop = c('RA', 'muni_elet', 'data', 'Pop_20', 'Fam_Cad', 'Fam_PBF',
+         'F_PBF_Domi', 'Domic_20', 'Map',
+         'MapSeq', 'F_PBF_EP', 'F_CAD_EP', 'muni.y',
+         'muni.x', 'muni.x.x', 'muni.y.y', 'ano.x', 'ano.y',
+         'ano.x.x', 'muni','ano.y.y', 'ES001', 'AG001' )
+
+df = df %>%
+    select(-drop)
+
+
+
+df = df %>%
+  mutate(pbf_cem = Pes_PBF*cem,
+         pcad_cem = Pes_Cad*cem)
+
+
+
+
+
+
+
+
+
+
+
+
+df = apply_labels(df,
+             cod_muni = 'Código IBGE',
+             Mun = 'Município',
+             Pes_PBF = 'pessoas no bolsa família')
 
 
 
