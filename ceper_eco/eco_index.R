@@ -29,17 +29,15 @@ setwd("D:/Git projects/CEPER/ceper_eco")
 # crime ----
 
 
-crime = tibble(read.csv('crime.csv', sep=';',
-                        header = T,
-                        fileEncoding="UTF-8-BOM") )
+crime = read_excel('crime.xlsx')
+                        
 
 
 
 # saneamento ----
 
 
-snis = tibble(read.csv('snis.csv', sep=';', header = T) )
-
+snis = read_excel('snis.xlsx')
 
 
 # CAD ----
@@ -70,22 +68,21 @@ sp = read_municipality(code_muni='SP')
 # longevidade ----
 
 
-l1 = tibble(read.csv('dead_adult.csv', sep=';', header = T) )
-  
-l2 = tibble(read.csv('dead_child.csv', sep=';', header = T) )
+l1 = read_excel('dead_adult.xlsx')
+
+l2 = read_excel('dead_child.xlsx')
 
 
 
 # saúde ----
 
-saude =  tibble(read.csv('saude.csv', sep=';', header = T) )
-
+saude =  read_excel('saude.xlsx')
 
 
 # eletricidade
 
 
-elet = tibble(read.csv('elet.csv', sep=';', header = T) )
+elet = read_excel('elet.xlsx')
 
 
 
@@ -102,8 +99,8 @@ df = list(elet, cad, crime, l1, l2, saude, snis) %>%
 drop = c('RA', 'muni_elet', 'data', 'Pop_20', 'Fam_Cad', 'Fam_PBF',
          'F_PBF_Domi', 'Domic_20', 'Map',
          'MapSeq', 'F_PBF_EP', 'F_CAD_EP', 'muni.y',
-         'muni.x', 'muni.x.x', 'muni.y.y', 'ano.x', 'ano.y',
-         'ano.x.x', 'muni','ano.y.y', 'ES001', 'AG001' )
+         'muni.x', 'muni', 'muni_s', 'muni', 'ES001', 
+         'AG001', 'ano', 'muni_m' )
 
 df = df %>%
     select(-drop)
