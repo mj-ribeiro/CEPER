@@ -197,46 +197,13 @@ corrplot(M, type="lower", order="hclust",
 
 
 
-# PCA ----
 
-library('Factoshiny')
-
-pca = PCAshiny(tt)
-
-
-
-
-summary(pca)
-
-pca$scores[1,1]
-
-
-
-
-
-nome['pca'] = p[,1]
-
-
-nome=nome[order(nome$pca, decreasing = T),]
-
-tail(nome,20)
-
-
-
-tt['Santa Salete',]
-
-
-
-# AF ----
-
-fa <- factanal(tt, factors = 2)
-
-
+stop('Mandei parar !')
 
 
 
 saveRDS(tt, 'data.rds')
-
+saveRDS(nome, 'nome.rds')
 
 
 
