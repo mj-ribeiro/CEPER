@@ -208,7 +208,7 @@ saveRDS(nome, 'nome.rds')
 
 
 
-
+colnames(tt)
 
 
 

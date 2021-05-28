@@ -48,8 +48,28 @@ pca = princomp(x, cor = T, scores = TRUE)
 summary(pca)
 
 
+df$pca = pca$scores[,1]
 
-df['pca'] = pca$scores[,1]
+cr = cor(df[,4:7])
+
+
+pesos = (cr[4, 1:3])^2/sum((cr[4, 1:3])^2)
+
+
+df$ind =  pesos[1]*df$riqueza + pesos[2]*df$longevidade + pesos[3]*df$escolaridade
+
+
+pre = caret::preProcess(df[,'ind'], 'range')
+df[,'ind']= predict(pre, df[,'ind'] )
+
+
+df = df%>%
+  select(-pca)
+
+
+df = df[order(df$ind, decreasing = T), ]
+
+df[,'pos'] = seq(1, dim(df)[1])
 
 
 
@@ -61,26 +81,15 @@ par(family = "mono", font=2)  # mudar a fonte
 options(OutDec= ".")         # colocar o separador decimal sendo vírgula
 
 
-
-melhor = df[order(df$pca, decreasing = T), ][1:10,]
-
-melhor = melhor[order(melhor$pca, decreasing = T), ]
-
+melhor = df[order(df$ind, decreasing = T), ][1:10,]
 melhor = data.frame(melhor[,-1])
-
 colnames(melhor) = c('Município', 'Grupo', 'Riqueza',
-                     'Logevidade', 'Escolaridade', 'PCA')
+                     'Logevidade', 'Escolaridade', 'IND', 'Posição')
 
 melhor
 
 
-# Tabela 1 -----
 
-stargazer::stargazer(melhor,summary = F, out = 'best.tex',
-                     decimal.mark = ',',
-                     digits.extra=0, digits=2,
-                     rownames = F
-                     )
 
 
 
@@ -118,23 +127,32 @@ dev.off()
 
 n = dim(df)[1] 
 
-pior = df[order(df$pca, decreasing = T), ][(n-9):n,]
+pior = df[order(df$ind, decreasing = T), ][(n-9):n,]
 
 pior = data.frame(pior[,-1])
-
+pior
 
 colnames(pior) = c('Município', 'Grupo', 'Riqueza',
-                     'Logevidade', 'Escolaridade', 'PCA')
+                     'Logevidade', 'Escolaridade', 'IND', 'Posição')
 
-pior = pior[order(pior$PCA,decreasing = F),]
+pior = pior[order(pior$PCA,decreasing = T),]
+
+pior
+
+
+row.names(melhor)= melhor$Município
+row.names(pior) = pior$Município
 
 
 
+
+
+BIND = rbind(melhor, pior, make.row.names=T)
 
 
 # Tabela 2 -----
 
-stargazer::stargazer(pior,summary = F, out = 'worst.tex',
+stargazer::stargazer(BIND,summary = F, out = 'iprs_tab.tex',
                      decimal.mark = ',',
                      digits.extra=0, digits=2,
                      rownames = F
