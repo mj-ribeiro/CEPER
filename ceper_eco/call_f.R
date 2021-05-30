@@ -37,8 +37,42 @@ med = function(x){
 
 
 
-impute.mean <- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
 
+
+f1 = function(x){
+  if(is.numeric(x) ){
+    
+    if( (max(x, na.rm=T)==min(x, na.rm=T) ) ){
+      rep(0, length(x))
+      
+    }else if(sum(is.nan(x))==length(x) ){
+      rep(0, length(x))
+      
+    }else{
+      ( x - min(x, na.rm = T) )/ (max(x, na.rm = T) - min(x, na.rm = T))
+      
+    }
+  }
+}
+
+
+
+
+f2 = function(x){
+  if(is.numeric(x) ){
+    
+    if( (max(x, na.rm=T)==min(x, na.rm=T) ) ){
+      rep(0, length(x))
+      
+    }else if(sum(is.nan(x))==length(x) ){
+      rep(0, length(x))
+      
+    }else{
+      ( max(x, na.rm = T) - x )/ (max(x, na.rm = T) - min(x, na.rm = T))
+      
+    }
+  }
+}
 
 
 
@@ -48,17 +82,10 @@ x=readxl::read_excel('snis2.xlsx', sheet='snis')
 
 
 
-
-
-
-
-
-
 z = x %>%
     group_by(muni) %>%
     fill(code_muni, .direction = "down")
 
-head(z, 25)
 
 
 
