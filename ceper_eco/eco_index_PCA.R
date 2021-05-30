@@ -14,13 +14,6 @@ source('call_f.R')
 
 
 
-data = d('2018')
-
-data=data[substr(data$ibge, 1,2) == '35' & data$anomes==201812, ]
-
-head(data)
-
-
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
