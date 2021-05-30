@@ -10,6 +10,15 @@ library(tidyverse)
 library(dplyr)
 library(RColorBrewer)
 
+source('call_f.R')
+
+
+
+data = d('2018')
+
+data=data[substr(data$ibge, 1,2) == '35' & data$anomes==201812, ]
+
+head(data)
 
 
 setwd("D:/Git projects/CEPER/ceper_eco")
@@ -26,20 +35,31 @@ colnames(df)
 xx = caret::preProcess(df, 'range')
 df = predict(xx, df)
 
+df$tx_m_15 = (1-df$tx_m_15)  
+df$tx_m_60 = (1-df$tx_m_60)
+df$tx_m_infantil = (1-df$tx_m_infantil) 
+df$tx_m_peri = (1-df$tx_m_peri) 
+
+df$roubo_cem = (1-df$roubo_cem) 
+df$furto_cem = 1-df$furto_cem
+df$hom_cem = 1-df$hom_cem
+df$pcad_cem = (1-df$pcad_cem)
+
 
 summary(df)
 
-colnames(df)
+cor(df[,c(6:9,14:16)])
 
 
 
-crime = (1/3)*( (1-df$hom_cem) + (1-df$furto_cem) + (1-df$roubo_cem) )
 
-riqueza = (1/2)*( df$c_elet_res + (1-df$pcad_cem) )
+crime = (1/3)*( df$hom_cem + df$furto_cem + df$roubo_cem )
+
+riqueza = (1/2)*( df$c_elet_res + df$pcad_cem )
 
 saude = (1/4)*(df$lsus_pmh + df$t_enf_pmh + df$enf_pmh + df$m_pmh )
 
-long = (1/4)*( (1-df$tx_m_15)  + (1-df$tx_m_60)+ (1-df$tx_m_infantil) + (1-df$tx_m_peri) )
+long = (1/4)*( df$tx_m_15  + df$tx_m_60 + df$tx_m_infantil + df$tx_m_peri )
 
 san = (1/3)*(df$IN015 + df$IN016 + df$IN055 )
 
@@ -86,21 +106,12 @@ sq = sqrt(val)/sum(sqrt(val))
 
 w = colSums(vet*sq)
 
+
 w = w/(sum(w)) 
 
 
+w
+R
 
-
-head(M)
-
-
-
-
-a=matrix(data=c(2,3,4,5,6,1,2,3,4,5,6,1), 2,6)
-
-
-w = c(0, -1, 2, 3, 1, -2)
-a*w
-a
-
-
+colSums(vet*sq)/sum(
+  colSums(vet*sq))
