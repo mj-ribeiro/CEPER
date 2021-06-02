@@ -1,9 +1,3 @@
-
-# Marcos Júnio Ribeiro
-
-# CEPER
-
-
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
@@ -53,12 +47,6 @@ seade=predict(xx, as.data.frame(seade[,5:(dim(seade)[2])] ))
 seade[,'ano'] = nomes$ano
 seade[,'muni'] = nomes$muni
 
-# seade[,'row'] = paste(seade$muni, seade$ano, sep='_')
-# 
-# seade = seade%>%
-#         tibble::column_to_rownames('row')
-# 
-
 
 
 # crime -----
@@ -86,7 +74,6 @@ educ = seade %>%
   rowwise() %>%
   mutate(educ = mean(c(dist_id_serie,  ideb_ini, ideb_fin), na.rm=T))
 
-educ$ano = nomes$ano
 
 
 make_sub_index(2017, educ,3, 5)
@@ -105,7 +92,6 @@ long = seade %>%
   rowwise() %>%
   mutate(long = mean(c( tx_m_15, tx_m_infantil, tx_m_peri), na.rm=T))
 
-long$ano = nomes$ano
 
 
 make_sub_index(2019, long, 3, 5)
@@ -122,7 +108,6 @@ saude = seade %>%
   mutate(sau = mean(c(l_sus_pmh, t_enf_phm, enf_phm, m_phm), na.rm=T))
 
 
-saude$ano = nomes$ano
 
 make_sub_index(2019, saude,3, 6)
 
@@ -148,7 +133,7 @@ make_scatter(2018, tot_pes_cad, pib_pc, riq)
 make_sub_index(2015, riq, 3, 6)
 
 
-  
+
 
 
 # saneamento ----
@@ -162,14 +147,11 @@ san = seade %>%
   mutate(san = mean(c(IN046_AE, IN055_AE, IN015_AE), na.rm=T))
 
 
-san$ano = nomes$ano
-
-
 make_sub_index(2015, san, 3, 5)
 
 
 
-year=2017
+
 
 DATA_SET = function(year){
   SAN = make_var(year, san,3, 5 )
@@ -179,9 +161,9 @@ DATA_SET = function(year){
   EDUC = make_var(year, educ, 3, 5)
   CRIME = make_var(year, crime, 3, 5)
   
-  DF = data.frame(SAN, RIQ, SAUDE, LONG, EDUC, CRIME)*1/6
+  DF = data.frame(SAN, RIQ, SAUDE, LONG, EDUC, CRIME)
   
-  DF$index = rowSums(DF)
+  DF$index = rowSums(DF)*1/6
   
   DF$muni = nomes[nomes$ano==year, 'muni']
   DF$code_muni = nomes[nomes$ano==year, 'code_muni']
@@ -190,65 +172,23 @@ DATA_SET = function(year){
   DF = DF[order(DF$index, decreasing = T),]
   
   rownames(DF) = DF$muni
-
+  
   DF$pos = seq(1, dim(DF)[1])
   return(DF)
 }
 
 
-s = DATA_SET(2017)
-hist(s$index)
-s[s$index>0.65,]
+s_17 = DATA_SET(2017)
 
-make_index()
+s_15 = DATA_SET(2015)
 
+s_13 = DATA_SET(2013)
 
-make_scatter(2015, index, LONG, s[s$index>0.5,])
-
-
-
-make_index = function(){
-  R = cor(s[,1:6])
-  id = colnames(R)
-  
-  corrplot::corrplot(R, type="lower", method = c('number'),
-                     order="hclust",
-                     col=viridis::inferno(5))
-  
-  ei = eigen(R)
-  vet = ei$vectors[,1:3]
-  vet = t(vet)
-  
-  val = ei$values[1:3]
-  sq = sqrt(val)/sum(sqrt(val))
-  w = colSums(vet*sq)
-  w = matrix(w^1/(sum(w^1)), 1 )
-  colnames(w) = id
-  w
-}
+s_11 = DATA_SET(2011)
 
 
 
-# get variables
-
-nomes[,'crime'] =  crime$cr
-nomes[,'educ']  =   educ$educ
-nomes[,'long'] = long$long
-nomes[,'sau'] = saude$sau
-nomes[,'riq'] = riq$riq
-nomes[,'san'] = san$san
-
-
-
-
-
-
-
-
-saveRDS(nomes, 'VAR_INDEX.rds')
-
-
-
+saveRDS(s_17, 's_17.rds')
 
 
 

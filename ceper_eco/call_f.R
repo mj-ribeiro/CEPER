@@ -14,7 +14,7 @@ library(tmap)
 library(tidyverse)
 library(dplyr)
 library(RColorBrewer)
-
+library(viridis)
 
 
 
@@ -33,7 +33,7 @@ d = function(X){
                   
 # stats ----
 
-function(x){fBasics::basicStats(x) }
+stats = function(x){fBasics::basicStats(x) }
 
 
 
@@ -96,6 +96,92 @@ make_scatter = function(year, x, y, df ){
     geom_point(color='darkred') +
     geom_smooth(method='lm')
 }
+
+
+
+# index of sub index
+
+
+make_index = function(){
+  R = cor(s[,2:6])
+  id = colnames(R)
+  
+  corrplot::corrplot(R, type="lower", method = c('number'),
+                     order="hclust",
+                     col=viridis::inferno(5))
+  
+  ei = eigen(R)
+  vet = ei$vectors[,1:3]
+  vet = t(vet)
+  
+  val = ei$values[1:3]
+  sq = sqrt(val)/sum(sqrt(val))
+  w = colSums(vet*sq)
+  w = matrix(w^1/(sum(w^1)), 1 )
+  colnames(w) = id
+  w
+}
+
+
+
+
+# mapas ----
+
+
+
+maps_f = function(sh, x, leg, fonte, type, breaks=NULL, 
+                  labels=NULL, colors=NULL){
+  g1 =  tm_shape(sh) +
+    tm_polygons(x,  
+                title=leg,  
+                textNA = 'Sem dados',
+                breaks = breaks,
+                label = labels,
+                palette=colors
+    ) +
+    tm_compass(type = "8star",
+               position = c("right", "bottom", size = 0.0)) +
+    tm_scale_bar(text.size = 0.6) +
+    tm_layout(
+      legend.text.size = 0.8,
+      frame = T,
+      legend.format = list(text.separator = "-"))
+  tmap_save(g1, filename = paste(fonte,leg,type, sep = ""), width = 6,
+            height = 4, units = 'in')
+}
+
+
+
+
+
+
+# view mapa ----
+
+
+
+
+view_map = function(sh, x, leg, fonte, breaks=NULL, 
+                  labels=NULL, colors=NULL){
+  tmap_mode('view')
+  g1 =  tm_shape(sh) +
+    tm_polygons(x,  
+                title=leg,  
+                textNA = 'Sem dados',
+                breaks = breaks,
+                label = labels,
+                palette=colors,
+                id = 'muni'
+    ) +
+    tm_compass(type = "8star",
+               position = c("right", "bottom", size = 0.0)) +
+    tm_scale_bar(text.size = 0.6) +
+    tm_layout(
+      legend.text.size = 0.8,
+      frame = T,
+      legend.format = list(text.separator = "-"))
+  return(g1)
+}
+
 
 
 

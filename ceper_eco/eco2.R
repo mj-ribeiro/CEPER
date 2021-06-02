@@ -1,23 +1,11 @@
 #############################################################################################
-#                          Estudo dados socioêconomicos
+#       Estudo dados socioêconomicos FIRJAN
 #############################################################################################
 
 # Marcos Júnio Ribeiro
 
 
-
-library(sf)
-library(geobr)
-library(ggplot2)
-library(readxl)
-library(magrittr)
-library(raster)
-library(tmap)
-library(reshape2)
-library(writexl)
-library(viridis)
-library(stringr)
-
+source('call_f.R')
 
 
 setwd("D:/Git projects/CEPER/ceper_eco")
@@ -67,7 +55,10 @@ for (i in 1:length(b)) {
 fir$name_muni = tolower(fir$name_muni)
 
 fir = fir[order(fir$name_muni),]
+
 fir[fir$name_muni!=sp$name_muni, 'name_muni'] = c('embu', 'moji mirim')
+
+
 
 
 
@@ -79,33 +70,9 @@ df2 = st_as_sf(df2)
 
 
 
+
+
 # mapas ----
-
-
-
-
-maps_f = function(sh, x, leg, fonte, breaks=NULL, 
-                  labels=NULL, colors=NULL){
-  g1 =  tm_shape(sh) +
-    tm_polygons(x,  
-                title=leg,  
-                textNA = 'Sem dados',
-                breaks = breaks,
-                label = labels,
-                palette=colors
-    ) +
-    tm_compass(type = "8star",
-               position = c("right", "bottom", size = 0.0)) +
-    tm_scale_bar(text.size = 0.6) +
-    tm_layout(
-      legend.text.size = 0.8,
-      frame = T,
-      legend.format = list(text.separator = "-"))
-  tmap_save(g1, filename = paste(fonte,leg,".eps", sep = ""), width = 6,
-            height = 4, units = 'in')
-}
-
-
 
 
 mybreaks = c(seq(0.5, 0.9, 0.1), Inf)
@@ -130,6 +97,17 @@ maps_f(sh=df2, x='IFDM',
        colors = mycolors,
        labels = mylabel
        )
+
+
+
+
+  
+fir = tibble(df2)%>%
+  dplyr::select(c('name_muni', 'code_muni',"IFDM", 
+        "Emprego & Renda", "Educação","Saúde"))
+
+
+saveRDS(fir, 'FIRJAN.rds')
 
 
 
