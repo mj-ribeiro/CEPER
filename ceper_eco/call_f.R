@@ -31,6 +31,11 @@ d = function(X){
 }
 
                   
+# stats ----
+
+function(x){fBasics::basicStats(x) }
+
+
 
 # substituir os NAs pela média ----
 
@@ -41,48 +46,56 @@ med = function(x){
 
 
 
+# make sub index ----
 
 
-f1 = function(x){
-  if(is.numeric(x) ){
-    
-    if( (max(x, na.rm=T)==min(x, na.rm=T) ) ){
-      rep(0, length(x))
-      
-    }else if(sum(is.nan(x))==length(x) ){
-      rep(0, length(x))
-      
-    }else{
-      ( x - min(x, na.rm = T) )/ (max(x, na.rm = T) - min(x, na.rm = T))
-      
-    }
-  }
+make_sub_index = function(year, df,y = 3,  x){
+  R = cor(df[df[,'ano']==year, y:x])
+  id = colnames(R)
+  
+  corrplot::corrplot(R, type="lower", method = c('number'),
+                     order="hclust",
+                     col=viridis::inferno(5))
+  
+  ei = eigen(R)
+  nval = sum(ei$values>1)
+  vet = ei$vectors[,1:nval]
+  vet = t(vet)
+  
+  val = ei$values[1:nval]
+  sq = sqrt(val)/sum(sqrt(val))
+  w = colSums(vet*sq)
+  w = matrix(w^1/(sum(w^1)), 1 )
+  colnames(w) = id
+  w
+}
+
+
+
+# calcular indice ----
+
+make_var = function(year, df, y, x){
+  w = make_sub_index(year, df, y, x)
+  d = df[df$ano==year, ]
+  d$ind = as.matrix(d[ ,y:x], 645, 1)%*%t(w) # 645 x 6     1 x 6
+  print(w)
+  return(d$ind)
 }
 
 
 
 
-f2 = function(x){
-  if(is.numeric(x) ){
-    
-    if( (max(x, na.rm=T)==min(x, na.rm=T) ) ){
-      rep(0, length(x))
-      
-    }else if(sum(is.nan(x))==length(x) ){
-      rep(0, length(x))
-      
-    }else{
-      ( max(x, na.rm = T) - x )/ (max(x, na.rm = T) - min(x, na.rm = T))
-      
-    }
-  }
+# scatter ----
+
+make_scatter = function(year, x, y, df ){
+  x=enquo(x)
+  y=enquo(y)
+  df%>%
+    filter(ano==year)%>%
+    ggplot(aes(!!x, !!y)) +
+    geom_point(color='darkred') +
+    geom_smooth(method='lm')
 }
-
-
-
-
-
-
 
 
 
