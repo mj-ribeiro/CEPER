@@ -1,10 +1,10 @@
 # Marcos Júnio Ribeiro
 
 
+setwd("D:/Git projects/CEPER/ceper_eco")
+
 source('call_f.R')
 
-
-setwd("D:/Git projects/CEPER/ceper_eco")
 
 
 
@@ -48,12 +48,13 @@ g1 = df2 %>%
                                                decimal.mark = ",", 
                                                scientific = FALSE)) +
   theme(panel.background = element_rect(fill = "linen"),
+        legend.background = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 8),
+        legend.text = element_text(size = 6),
         legend.title = element_blank(),
         strip.text.x = element_blank(),
         strip.background = element_rect(colour="white", fill="white"),
-        legend.position=c(0.12,0.95),
+        legend.position=c(0.25,0.95),
         axis.text.x = element_text(size=10), 
         axis.text.y = element_text(size=10), 
         axis.title.x = element_text(colour = 'black', size=11),
@@ -62,7 +63,7 @@ g1 = df2 %>%
   ylab('Índice CEPER') +
   ggtitle('(A)')
 
-
+g1
 
 
 cor(df2[is.na(df2$IFDM)==F,'IFDM'], 
@@ -86,21 +87,22 @@ g2 = df2 %>%
                                                decimal.mark = ",", 
                                                scientific = FALSE)) +
   theme(panel.background = element_rect(fill = "linen"),
+        legend.background = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 8),
+        legend.text = element_text(size = 6),
         legend.title = element_blank(),
         strip.text.x = element_blank(),
         strip.background = element_rect(colour="white", fill="white"),
-        legend.position=c(0.12,0.95),
+        legend.position=c(0.25,0.95),
         axis.text.x = element_text(size=10), 
         axis.text.y = element_text(size=10), 
         axis.title.x = element_text(colour = 'black', size=12),
         axis.title.y = element_text(colour = 'black', size=12) ) +
   xlab('IPRS') + 
   ylab('Índice CEPER') +
-  ggtitle('(B)')
+  ggtitle('(B)') 
 
-
+g2
 
 cor(df2$iprs, df2$index)
 
@@ -114,6 +116,46 @@ G = ggarrange(g1, g2, nrow=1, ncol=2)
 G
 
 ggsave(G, file="comp.eps", device="eps", height=4, width=6)
+
+
+
+# histograma ----
+
+
+stats(df2$index)
+
+g3 =  df2 %>%
+  ggplot(aes(index)) +
+  geom_histogram(fill='darkred', col='white',binwidth = 0.05,
+                 boundary = 0, closed = "left") +
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".",
+                                               decimal.mark = ",", 
+                                               scientific = FALSE)) +
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".",
+                                               decimal.mark = ",", 
+                                               scientific = FALSE),
+                     breaks = seq(0.45, 0.75, 0.05), 
+                     #limits = c(0.47, 0.73)
+                     ) +
+  theme(panel.background = element_rect(fill = "linen"),
+        legend.background = element_blank(),
+        plot.title = element_text(hjust = 0.5, size = 10),
+        legend.text = element_text(size = 6),
+        legend.title = element_blank(),
+        strip.text.x = element_blank(),
+        strip.background = element_rect(colour="white", fill="white"),
+        legend.position=c(0.25,0.95),
+        axis.text.x = element_text(size=10), 
+        axis.text.y = element_text(size=10), 
+        axis.title.x = element_text(colour = 'black', size=11),
+        axis.title.y = element_text(colour = 'black', size=11) ) +
+  xlab('Índice CEPER') +
+  ylab('Frequência')
+
+
+g3 
+
+
 
 
 
@@ -167,6 +209,9 @@ maps_f(sh=mp, x='index',
 )
 
 
+
+# mapa interativo ----
+
 view_map(sh=mp, x='index',
        leg='Índice CEPER', 
        fonte='cp_',
@@ -181,5 +226,66 @@ view_map(sh=mp, x='index',
 tmap_mode('view')
 
 
-saveRDS(mp, 'mp.rds')
+
+# comparar ceper com anos anteriores ----
+
+i13 = read_rds('s_13.rds')
+i15 = read_rds('s_15.rds')
+
+
+s1 =stats(i13$index)
+
+
+s2 = stats(i15$index)
+
+s3 = stats(i17$index)
+
+
+BIND = cbind(s1, s2, s3)
+
+colnames(BIND) = c('Índice CEPER 2013', 
+                   'Índice CEPER 2015', 
+                   'Índice CEPER 2017')
+
+sn = c("nobs", "NAs", "Sum", "SE Mean", "LCL Mean", "UCL Mean")
+
+
+BIND = BIND[!(rownames(BIND)%in%sn), ]
+
+nn = c('Mínimo', 'Máximo', '1 Quartil', '3 Quartil', 'Média',
+  'Mediana', 'Variância', 'Desvio Padrão', 'Assimetria', 'Curtose')
+
+rownames(BIND) = nn
+
+
+# Tabela 2 -----
+
+stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=2,
+                     rownames = T
+)
+
+
+BIND
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
