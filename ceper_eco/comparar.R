@@ -107,11 +107,6 @@ g2
 cor(df2$iprs, df2$index)
 
 
-
-
-
-library("ggpubr")
-
 G = ggarrange(g1, g2, nrow=1, ncol=2)
 G
 
@@ -163,7 +158,6 @@ g3
 
 mp = tibble(df2)%>%
       dplyr::select(c(muni, code_muni, index))
-
 
 
 mp = merge(mp, sp, by='code_muni')
@@ -229,15 +223,16 @@ tmap_mode('view')
 
 # comparar ceper com anos anteriores ----
 
+
 i13 = read_rds('s_13.rds')
 i15 = read_rds('s_15.rds')
 
 
+i15['Trabiju', ]
+
+
 s1 =stats(i13$index)
-
-
 s2 = stats(i15$index)
-
 s3 = stats(i17$index)
 
 
@@ -258,7 +253,7 @@ nn = c('Mínimo', 'Máximo', '1 Quartil', '3 Quartil', 'Média',
 rownames(BIND) = nn
 
 
-# Tabela 2 -----
+# Tabela 1  -----
 
 stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
                      decimal.mark = ',',
@@ -270,6 +265,49 @@ stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
 BIND
 
 
+
+# melhores e piores ----
+
+i13 = i13%>%
+  dplyr::select(c('muni', 'index'))%>%
+  relocate(muni)
+rownames(i13)=NULL
+colnames(i13) = c('Município', 'Índice')
+
+
+
+i15 = i15%>%
+  dplyr::select(c('muni', 'index'))%>%
+  relocate(muni)
+rownames(i15)=NULL
+colnames(i15) = c('Município', 'Índice')
+
+
+i17 = i17%>%
+  dplyr::select(c('muni', 'index', 'pos'))%>%
+  relocate(muni)
+rownames(i17)=NULL
+colnames(i17) = c('Município', 'Índice', 'Ranking')
+
+
+  
+T13 = rbind(head(i13, 10), tail(i13, 10) )
+
+T15 = rbind(head(i15, 10), tail(i15, 10) )
+
+T17 = rbind(head(i17, 10), tail(i17, 10) )
+
+
+rank = cbind(T13, T15, T17)
+
+
+# Tabela 2  -----
+
+stargazer::stargazer(rank,summary = F, out = 'rank.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=2,
+                     rownames = F
+)
 
 
 

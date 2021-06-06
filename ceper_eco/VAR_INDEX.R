@@ -21,11 +21,21 @@ seade = merge(seade, cad, by=c('ano', 'my_code'))
 seade = merge(seade, snis, by=c('ano', 'code_muni'))
 
 
+seade %>%
+  filter(ano==2019)%>%
+  count(is.na(furt))
+
+
+seade%>%
+  filter(muni=='Ribeira')
+
 
 
 seade = seade %>%
   dplyr::select(-muni.san)%>%
   filter(ano>2008)%>%
+  mutate(np = cut(seade$pop, breaks=c(seq(0, 4e5, 1e4), Inf) ) )%>%
+  group_by(np)%>%
   mutate_all( funs(ifelse(is.na(.), mean(., na.rm = TRUE),.)) ) %>%
   mutate(hom_phm =1e3*hom/pop,
          furt_phm = 1e3*furt/pop,
@@ -52,15 +62,14 @@ seade[,'muni'] = nomes$muni
 # crime -----
 
 crime = seade %>%
-  dplyr::select(c(ano, muni, hom_phm, fv_phm,  roub_phm) )%>%
+  dplyr::select(c(ano, muni, furt, fv_phm,  roub_phm) )%>%
   group_by(muni)%>%
   rowwise() %>%
-  mutate(fv_phm = 1-fv_phm, hom_phm=1-hom_phm, roub_phm=1-roub_phm)%>%
-  mutate(cr = mean(c(fv_phm, roub_phm, hom_phm), na.rm=T))
+  mutate(fv_phm = 1-fv_phm, furt=1-furt, roub_phm=1-roub_phm)%>%
+  mutate(cr = mean(c(fv_phm, roub_phm, furt), na.rm=T))
 
 
-
-make_sub_index(2011, crime, 3, 5)
+make_sub_index(2013, crime, 3, 5)
 
 
 
@@ -94,7 +103,7 @@ long = seade %>%
 
 
 
-make_sub_index(2019, long, 3, 5)
+make_sub_index(2017, long, 3, 5)
 
 
 
@@ -109,7 +118,7 @@ saude = seade %>%
 
 
 
-make_sub_index(2019, saude,3, 6)
+make_sub_index(2017, saude,4, 6)
 
 
 
@@ -141,13 +150,10 @@ make_sub_index(2015, riq, 3, 6)
 
 san = seade %>%
   group_by(muni) %>%
-  dplyr::select(c(muni, ano, IN046_AE, IN055_AE, IN015_AE))%>%
-  group_by(muni) %>%
-  rowwise() %>%
-  mutate(san = mean(c(IN046_AE, IN055_AE, IN015_AE), na.rm=T))
+  dplyr::select(c(muni, ano, IN046_AE, IN016_AE, IN055_AE))
+  
 
-
-make_sub_index(2015, san, 3, 5)
+make_sub_index(2017, san, 3, 5)
 
 
 
@@ -156,7 +162,7 @@ make_sub_index(2015, san, 3, 5)
 DATA_SET = function(year){
   SAN = make_var(year, san,3, 5 )
   RIQ = make_var(year, riq, 3, 6)
-  SAUDE = make_var(year, saude, 3, 6)
+  SAUDE = make_var(year, saude, 4, 6)
   LONG = make_var(year, long, 3, 5)
   EDUC = make_var(year, educ, 3, 5)
   CRIME = make_var(year, crime, 3, 5)
@@ -171,7 +177,8 @@ DATA_SET = function(year){
   
   DF = DF[order(DF$index, decreasing = T),]
   
-  rownames(DF) = DF$muni
+  rownames(DF) = NULL
+  rownames(DF) = t(DF[,'muni'])
   
   DF$pos = seq(1, dim(DF)[1])
   return(DF)
@@ -179,6 +186,7 @@ DATA_SET = function(year){
 
 
 s_17 = DATA_SET(2017)
+
 
 s_15 = DATA_SET(2015)
 
@@ -189,6 +197,9 @@ s_11 = DATA_SET(2011)
 
 
 saveRDS(s_17, 's_17.rds')
+saveRDS(s_15, 's_15.rds')
+saveRDS(s_13, 's_13.rds')
+saveRDS(s_11, 's_11.rds')
 
 
 
