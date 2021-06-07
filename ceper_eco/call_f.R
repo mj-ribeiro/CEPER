@@ -60,6 +60,7 @@ make_sub_index = function(year, df,y = 3,  x){
   
   ei = eigen(R)
   nval = sum(ei$values>1)
+  cat('Autovalores:', ei$values, '\n')
   vet = ei$vectors[,1:nval]
   vet = t(vet)
   
@@ -70,6 +71,8 @@ make_sub_index = function(year, df,y = 3,  x){
   colnames(w) = id
   w
 }
+
+
 
 
 
@@ -182,6 +185,25 @@ view_map = function(sh, x, leg, fonte, breaks=NULL,
       legend.format = list(text.separator = "-"))
   return(g1)
 }
+
+
+
+
+# classificar CEPER -----
+
+  
+d = function(x){
+  ifelse(x>=0 & x<=0.33, 'Baixo',
+         ifelse(x>0.33 & x<=0.5, 'Regular',
+         ifelse(x>0.5 & x<=0.66, 'Moderado', 
+          ifelse(x>0.66 & x<=1, 'Alto', 'Não se aplica'))
+         )  )
+}
+
+
+seq(1,6,1)/6
+
+table(d(firjan$IFDM))
 
 
 

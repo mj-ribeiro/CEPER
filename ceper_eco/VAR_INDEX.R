@@ -21,21 +21,12 @@ seade = merge(seade, cad, by=c('ano', 'my_code'))
 seade = merge(seade, snis, by=c('ano', 'code_muni'))
 
 
-seade %>%
-  filter(ano==2019)%>%
-  count(is.na(furt))
-
-
-seade%>%
-  filter(muni=='Ribeira')
-
-
 
 seade = seade %>%
   dplyr::select(-muni.san)%>%
   filter(ano>2008)%>%
   mutate(np = cut(seade$pop, breaks=c(seq(0, 4e5, 1e4), Inf) ) )%>%
-  group_by(np)%>%
+  group_by(np, ano)%>%
   mutate_all( funs(ifelse(is.na(.), mean(., na.rm = TRUE),.)) ) %>%
   mutate(hom_phm =1e3*hom/pop,
          furt_phm = 1e3*furt/pop,
@@ -69,7 +60,7 @@ crime = seade %>%
   mutate(cr = mean(c(fv_phm, roub_phm, furt), na.rm=T))
 
 
-make_sub_index(2013, crime, 3, 5)
+make_sub_index(2011, crime, 3, 5)
 
 
 
@@ -85,7 +76,7 @@ educ = seade %>%
 
 
 
-make_sub_index(2017, educ,3, 5)
+make_sub_index(2011, educ,3, 5)
 
 
 
@@ -103,7 +94,7 @@ long = seade %>%
 
 
 
-make_sub_index(2017, long, 3, 5)
+make_sub_index(2015, long, 3, 5)
 
 
 
@@ -118,7 +109,7 @@ saude = seade %>%
 
 
 
-make_sub_index(2017, saude,4, 6)
+make_sub_index(2015, saude,4, 6)
 
 
 
@@ -139,7 +130,7 @@ riq = seade %>%
 make_scatter(2018, tot_pes_cad, pib_pc, riq)
 
 
-make_sub_index(2015, riq, 3, 6)
+make_sub_index(2017, riq, 3, 6)
 
 
 
@@ -150,12 +141,10 @@ make_sub_index(2015, riq, 3, 6)
 
 san = seade %>%
   group_by(muni) %>%
-  dplyr::select(c(muni, ano, IN046_AE, IN016_AE, IN055_AE))
+  dplyr::select(c(muni, ano, IN055_AE, IN046_AE, IN015_AE, IN016_AE))
   
 
-make_sub_index(2017, san, 3, 5)
-
-
+make_sub_index(2013, san, 3, 5)
 
 
 
@@ -169,11 +158,12 @@ DATA_SET = function(year){
   
   DF = data.frame(SAN, RIQ, SAUDE, LONG, EDUC, CRIME)
   
-  DF$index = rowSums(DF)*1/6
+  DF[,'index'] = rowSums(DF)*1/6
+  DF[,'class'] = d(DF$index)
   
-  DF$muni = nomes[nomes$ano==year, 'muni']
-  DF$code_muni = nomes[nomes$ano==year, 'code_muni']
-  DF$ano = nomes[nomes$ano==year, 'ano']
+  DF[,'muni'] = nomes[nomes$ano==year, 'muni']
+  DF[,'code_muni'] = nomes[nomes$ano==year, 'code_muni']
+  DF[,'ano'] = nomes[nomes$ano==year, 'ano']
   
   DF = DF[order(DF$index, decreasing = T),]
   
@@ -187,19 +177,22 @@ DATA_SET = function(year){
 
 s_17 = DATA_SET(2017)
 
-
 s_15 = DATA_SET(2015)
 
 s_13 = DATA_SET(2013)
 
-s_11 = DATA_SET(2011)
+
+table(s_17$class)
+
+table(s_15$class)
+
+table(s_13$class)
 
 
 
 saveRDS(s_17, 's_17.rds')
 saveRDS(s_15, 's_15.rds')
 saveRDS(s_13, 's_13.rds')
-saveRDS(s_11, 's_11.rds')
 
 
 

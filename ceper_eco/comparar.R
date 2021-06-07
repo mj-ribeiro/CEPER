@@ -27,13 +27,14 @@ sp = sp[order(sp$name_muni), ]
 # merges ----
 
 df2 = merge(i17, firjan, by='code_muni')
+
 df2 = merge(df2, iprs, by='code_muni')
 
 
 
 
 
-# ifdm x ceper
+# ifdm x ceper ----
 
 
 g1 = df2 %>%
@@ -228,7 +229,7 @@ i13 = read_rds('s_13.rds')
 i15 = read_rds('s_15.rds')
 
 
-i15['Trabiju', ]
+i15['Ribeirão Preto', ]
 
 
 s1 =stats(i13$index)
@@ -242,13 +243,13 @@ colnames(BIND) = c('Índice CEPER 2013',
                    'Índice CEPER 2015', 
                    'Índice CEPER 2017')
 
-sn = c("nobs", "NAs", "Sum", "SE Mean", "LCL Mean", "UCL Mean")
+sn = c("nobs", "NAs", "Sum", "SE Mean", "LCL Mean", "UCL Mean", 'Variance')
 
 
 BIND = BIND[!(rownames(BIND)%in%sn), ]
 
 nn = c('Mínimo', 'Máximo', '1 Quartil', '3 Quartil', 'Média',
-  'Mediana', 'Variância', 'Desvio Padrão', 'Assimetria', 'Curtose')
+  'Mediana', 'Desvio Padrão', 'Assimetria', 'Curtose')
 
 rownames(BIND) = nn
 
@@ -257,7 +258,7 @@ rownames(BIND) = nn
 
 stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
                      decimal.mark = ',',
-                     digits.extra=0, digits=2,
+                     digits.extra=0, digits=4,
                      rownames = T
 )
 
@@ -305,7 +306,7 @@ rank = cbind(T13, T15, T17)
 
 stargazer::stargazer(rank,summary = F, out = 'rank.tex',
                      decimal.mark = ',',
-                     digits.extra=0, digits=2,
+                     digits.extra=0, digits=4,
                      rownames = F
 )
 
