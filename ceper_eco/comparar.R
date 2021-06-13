@@ -165,7 +165,7 @@ mp = merge(mp, sp, by='code_muni')
 
 
 muni =mp%>%
-  select(c(muni, index, geom))
+  dplyr::select(c(muni, index, geom))
 
 colnames(mp)
 
@@ -254,7 +254,7 @@ nn = c('Mínimo', 'Máximo', '1 Quartil', '3 Quartil', 'Média',
 rownames(BIND) = nn
 
 
-# Tabela 1  -----
+# Tabela 1: estatísticas  -----
 
 stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
                      decimal.mark = ',',
@@ -298,17 +298,71 @@ T15 = rbind(head(i15, 10), tail(i15, 10) )
 
 T17 = rbind(head(i17, 10), tail(i17, 10) )
 
-
 rank = cbind(T13, T15, T17)
 
 
-# Tabela 2  -----
+# Tabela 2: Rank  -----
 
 stargazer::stargazer(rank,summary = F, out = 'rank.tex',
                      decimal.mark = ',',
                      digits.extra=0, digits=4,
                      rownames = F
 )
+
+
+
+
+
+# Tabela 3: evolução -----
+
+
+
+c13 = i13%>%
+  dplyr::select(c(code_muni, index, pos))
+colnames(c13)[2:3] = c("index_13", "pos_13")
+
+
+
+c17 = i17%>%
+  dplyr::select(c(code_muni, muni, index, pos))
+colnames(c17)[3:4] = c("index_17", "pos_17")
+
+
+C = merge(c13, c17, by="code_muni")
+
+
+
+C = C %>%
+  mutate(comp = index_17 - index_13)%>%
+  relocate(where(is.character)) %>%
+  dplyr::select(-c(code_muni))
+
+
+colnames(C) = c("Município", "Índice 2013", "Ranking 2013", "Índice 2017", "Ranking 2017", "Diferença")
+
+
+
+P1 = head(C[order(C$Diferença, decreasing = T), ], 10 )
+P2 = tail(C[order(C$Diferença, decreasing = T), ], 10 )
+
+
+CC = rbind(P1, P2)
+
+rownames(CC) = NULL
+
+stargazer::stargazer(CC,summary = F, out = 'comp.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = F
+)
+
+
+
+
+
+
+
+
 
 
 

@@ -31,6 +31,9 @@ d = function(X){
   data=data[substr(data$ibge, 1,2) == '35' & data$anomes==paste(X,12,sep=''), ]
 }
 
+
+
+
                   
 # stats ----
 
@@ -206,5 +209,11 @@ seq(1,6,1)/6
 table(d(firjan$IFDM))
 
 
+
+
+# ceper shiny
+# https://github.com/andrew-couch/Tidy-Tuesday/blob/master/Season%201/Apps/TidyTuesdayDashboardLevels/advanced_app.R
+
+# https://www.youtube.com/watch?v=PHdIivFAq7Q&ab_channel=AndrewCouchAndrewCouc# h
 
 

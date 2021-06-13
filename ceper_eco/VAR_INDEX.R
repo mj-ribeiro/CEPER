@@ -182,11 +182,11 @@ s_15 = DATA_SET(2015)
 s_13 = DATA_SET(2013)
 
 
-table(s_17$class)
+prop.table(table(s_17$class) )
 
-table(s_15$class)
+prop.table(table(s_15$class))
 
-table(s_13$class)
+prop.table(table(s_13$class))
 
 
 
