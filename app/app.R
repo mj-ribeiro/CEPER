@@ -23,7 +23,6 @@ ui = fluidPage(
        tags$img(src="ceper.png", height=150, width=1000), 
       
       tabsetPanel(
-        #id = 'dataset',
         tabPanel('Indice 2017', DT::dataTableOutput("i17")),
         tabPanel('Índice 2015', DT::dataTableOutput("i15")),
         tabPanel('Índice 2013', DT::dataTableOutput("i13")) 

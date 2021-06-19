@@ -8,32 +8,6 @@ source('call_f.R')
 
 
 
-iprs = read_excel('muni.xlsx', sheet = 'data_18')
-iprs$iprs = rowSums(iprs[,4:6])*1/300
-
-
-firjan = read_rds('FIRJAN.rds')
-
-i17 = read_rds('s_17.rds')
-
-
-# geocode ----
-
-
-sp = read_municipality(code_muni = 'SP')
-sp = sp[order(sp$name_muni), ]
-
-
-# merges ----
-
-df2 = merge(i17, firjan, by='code_muni')
-
-df2 = merge(df2, iprs, by='code_muni')
-
-
-
-
-
 # ifdm x ceper ----
 
 
@@ -51,7 +25,7 @@ g1 = df2 %>%
   theme(panel.background = element_rect(fill = "linen"),
         legend.background = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 6),
+        legend.text = element_text(size = 10),
         legend.title = element_blank(),
         strip.text.x = element_blank(),
         strip.background = element_rect(colour="white", fill="white"),
@@ -90,7 +64,7 @@ g2 = df2 %>%
   theme(panel.background = element_rect(fill = "linen"),
         legend.background = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 6),
+        legend.text = element_text(size = 10),
         legend.title = element_blank(),
         strip.text.x = element_blank(),
         strip.background = element_rect(colour="white", fill="white"),
@@ -111,7 +85,7 @@ cor(df2$iprs, df2$index)
 G = ggarrange(g1, g2, nrow=1, ncol=2)
 G
 
-ggsave(G, file="comp.eps", device="eps", height=4, width=6)
+ggsave(G, file="comp.eps", device="eps", height=4, width=8)
 
 
 
@@ -136,7 +110,7 @@ g3 =  df2 %>%
   theme(panel.background = element_rect(fill = "linen"),
         legend.background = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 6),
+        legend.text = element_text(size = 8),
         legend.title = element_blank(),
         strip.text.x = element_blank(),
         strip.background = element_rect(colour="white", fill="white"),
@@ -152,8 +126,15 @@ g3 =  df2 %>%
 g3 
 
 
+hist(df2$index, col='green', breaks=25)
+abline(v=mean(df2$index))
+
+df2 %>%
+  filter(index>=mean(index))%>%
+  count(n=n())
 
 
+stats(df2$index)
 
 # maps ----
 
@@ -225,8 +206,6 @@ tmap_mode('view')
 # comparar ceper com anos anteriores ----
 
 
-i13 = read_rds('s_13.rds')
-i15 = read_rds('s_15.rds')
 
 
 i15['Ribeirão Preto', ]
@@ -355,6 +334,89 @@ stargazer::stargazer(CC,summary = F, out = 'comp.tex',
                      digits.extra=0, digits=4,
                      rownames = F
 )
+
+
+
+# Scatter polar ----
+
+library(plotly)
+
+if (!require("processx")) install.packages("processx")
+
+
+m13 = as.numeric(colMeans(i13[,1:6]) )
+
+m15 = as.numeric(colMeans(i15[,1:6]) )
+
+m17 = as.numeric(colMeans(i17[,1:6]) )
+
+m17
+
+
+n =  c('Saneamento', 'Riqueza', 'Saúde', 'Longevidade', 'Educação', 'Crime')
+
+
+
+s13 = plot_ly(
+  type = "scatterpolar",
+  r = m13,
+  theta = n,
+  fill = "toself",
+  mode = "markers")
+
+
+s15 = plot_ly(
+  type = "scatterpolar",
+  r = m15,
+  theta = n,
+  fill = "toself",
+  mode = "markers")
+
+
+
+s17 = plot_ly(
+  type = "scatterpolar",
+  r = m17,
+  theta = n,
+  fill = "toself",
+  mode = "markers"
+)
+
+
+plot_ly(type = 'scatterpolar',
+        mode = 'lines') %>%
+  add_trace(r = m13,
+            theta = n,
+            fill = "toself",
+            mode = "markers",
+            name='Índice 2013') %>%
+  add_trace(r = m15,
+            theta = n1,
+            fill = "toself",
+            mode = "markers",
+            name='Índice 2015')%>%
+  add_trace(r = m17,
+            theta = n2,
+            fill = "toself",
+            mode = "markers",
+            name='Índice 2017')%>%
+    layout(
+      polar = list(
+        radialaxis = list(
+          visible = T,
+          range = c(0,1)
+        )
+      )
+    ) 
+  %>%
+    subplot(ncols = 3)
+  )
+
+
+
+  
+
+S = subplot(s13, s15, s17, nrows = 3)
 
 
 

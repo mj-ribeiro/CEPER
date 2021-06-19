@@ -19,6 +19,38 @@ library(ggpubr)
 
 
 
+# dataset -----
+
+
+
+
+iprs = read_excel('muni.xlsx', sheet = 'data_18')
+iprs$iprs = rowSums(iprs[,4:6])*1/300
+
+
+firjan = read_rds('FIRJAN.rds')
+
+i17 = read_rds('s_17.rds')
+i13 = read_rds('s_13.rds')
+i15 = read_rds('s_15.rds')
+
+
+# geocode ----
+
+
+sp = read_municipality(code_muni = 'SP')
+sp = sp[order(sp$name_muni), ]
+
+
+# merges ----
+
+df2 = merge(i17, firjan, by='code_muni')
+
+df2 = merge(df2, iprs, by='code_muni')
+
+
+
+
 # Dados do cad
 
 #dicionário
@@ -215,5 +247,19 @@ table(d(firjan$IFDM))
 # https://github.com/andrew-couch/Tidy-Tuesday/blob/master/Season%201/Apps/TidyTuesdayDashboardLevels/advanced_app.R
 
 # https://www.youtube.com/watch?v=PHdIivFAq7Q&ab_channel=AndrewCouchAndrewCouc# h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
