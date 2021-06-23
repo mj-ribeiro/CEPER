@@ -1,6 +1,8 @@
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
+options(OutDec= ".")         # colocar o separador decimal sendo vírgula
+
 source('call_f.R')
 
 
@@ -39,7 +41,9 @@ seade = seade %>%
 
 colnames(seade)
 
-nomes = seade[,c('muni', "code_muni", 'ano')]
+nomes = seade[,c('muni', 'code_muni', 'ano', 'pop')]
+
+
 
 xx = caret::preProcess(seade[,5:(dim(seade)[2])] , 'range')
 seade=predict(xx, as.data.frame(seade[,5:(dim(seade)[2])] ))
@@ -164,6 +168,7 @@ DATA_SET = function(year){
   DF[,'muni'] = nomes[nomes$ano==year, 'muni']
   DF[,'code_muni'] = nomes[nomes$ano==year, 'code_muni']
   DF[,'ano'] = nomes[nomes$ano==year, 'ano']
+  DF[, 'pop'] = nomes[nomes$ano==year, 'pop']
   
   DF = DF[order(DF$index, decreasing = T),]
   

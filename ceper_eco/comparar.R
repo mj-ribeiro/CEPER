@@ -136,6 +136,7 @@ df2 %>%
 
 stats(df2$index)
 
+
 # maps ----
 
 mp = tibble(df2)%>%
@@ -244,6 +245,7 @@ stargazer::stargazer(BIND,summary = F, out = 'ceper.tex',
 
 BIND
 
+viridis::inferno(6, 1, 0.2)
 
 
 # melhores e piores ----
@@ -334,99 +336,6 @@ stargazer::stargazer(CC,summary = F, out = 'comp.tex',
                      digits.extra=0, digits=4,
                      rownames = F
 )
-
-
-
-# Scatter polar ----
-
-library(plotly)
-
-if (!require("processx")) install.packages("processx")
-
-
-m13 = as.numeric(colMeans(i13[,1:6]) )
-
-m15 = as.numeric(colMeans(i15[,1:6]) )
-
-m17 = as.numeric(colMeans(i17[,1:6]) )
-
-m17
-
-
-n =  c('Saneamento', 'Riqueza', 'Saúde', 'Longevidade', 'Educação', 'Crime')
-
-
-
-s13 = plot_ly(
-  type = "scatterpolar",
-  r = m13,
-  theta = n,
-  fill = "toself",
-  mode = "markers")
-
-
-s15 = plot_ly(
-  type = "scatterpolar",
-  r = m15,
-  theta = n,
-  fill = "toself",
-  mode = "markers")
-
-
-
-s17 = plot_ly(
-  type = "scatterpolar",
-  r = m17,
-  theta = n,
-  fill = "toself",
-  mode = "markers"
-)
-
-
-plot_ly(type = 'scatterpolar',
-        mode = 'lines') %>%
-  add_trace(r = m13,
-            theta = n,
-            fill = "toself",
-            mode = "markers",
-            name='Índice 2013') %>%
-  add_trace(r = m15,
-            theta = n1,
-            fill = "toself",
-            mode = "markers",
-            name='Índice 2015')%>%
-  add_trace(r = m17,
-            theta = n2,
-            fill = "toself",
-            mode = "markers",
-            name='Índice 2017')%>%
-    layout(
-      polar = list(
-        radialaxis = list(
-          visible = T,
-          range = c(0,1)
-        )
-      )
-    ) 
-  %>%
-    subplot(ncols = 3)
-  )
-
-
-
-  
-
-S = subplot(s13, s15, s17, nrows = 3)
-
-
-
-
-
-
-
-
-
-
 
 
 
