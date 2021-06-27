@@ -25,7 +25,11 @@ ui = fluidPage(
       tabsetPanel(
         tabPanel('Indice 2017', DT::dataTableOutput("i17")),
         tabPanel('Índice 2015', DT::dataTableOutput("i15")),
-        tabPanel('Índice 2013', DT::dataTableOutput("i13")) 
+        tabPanel('Índice 2013', DT::dataTableOutput("i13")),
+        
+        tabPanel('Ranking SubIndice-2017', DT::dataTableOutput("r17")),
+        tabPanel('Ranking SubIndice-2015', DT::dataTableOutput("r15")),
+        tabPanel('Ranking SubIndice-2013', DT::dataTableOutput("r13"))
         
       )
     ) 
@@ -49,7 +53,17 @@ server = function(input, output){
     s_13 <- readRDS("./data/s_13.rds")
     s_13 <- round(s_13[, c(seq(1,7),11)], 4)
     output$i13 <- DT::renderDataTable(s_13)
+    
+    
+    r_13 <- readRDS("./data/r13.rds")
+    output$r13 <- DT::renderDataTable(r_13)
   
+    r_15 <- readRDS("./data/r15.rds")
+    output$r15 <- DT::renderDataTable(r_15)
+    
+    r_17 <- readRDS("./data/r17.rds")
+    output$r17 <- DT::renderDataTable(r_17)
+    
   
 }
 

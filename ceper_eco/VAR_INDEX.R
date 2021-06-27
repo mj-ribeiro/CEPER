@@ -1,7 +1,7 @@
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
-options(OutDec= ".")         # colocar o separador decimal sendo vírgula
+#options(OutDec= ".")         # colocar o separador decimal sendo vírgula
 
 source('call_f.R')
 
@@ -18,7 +18,6 @@ seade=seade%>%
   mutate(my_code = as.numeric(substr(code_muni, 1, 6)) )
 
 seade = merge(seade, cad, by=c('ano', 'my_code'))
-
 
 seade = merge(seade, snis, by=c('ano', 'code_muni'))
 
@@ -39,14 +38,24 @@ seade = seade %>%
          tot_pes_cad = 1e3*tot_pes_cad/pop)
 
 
-colnames(seade)
+
+
+stats(tt[tt$ano==2013, 'fv'] )
+
+
 
 nomes = seade[,c('muni', 'code_muni', 'ano', 'pop')]
 
 
+seade = seade %>%
+  group_by(ano)%>%
+  dplyr::select(seq(5, 35))%>%
+  dplyr::select(-np)%>%
+  mutate_all(normalit)
 
-xx = caret::preProcess(seade[,5:(dim(seade)[2])] , 'range')
-seade=predict(xx, as.data.frame(seade[,5:(dim(seade)[2])] ))
+
+#xx = caret::preProcess(seade[,5:(dim(seade)[2])] , 'range')
+#seade=predict(xx, as.data.frame(seade[,5:(dim(seade)[2])] ))
 
 
 seade[,'ano'] = nomes$ano
@@ -64,7 +73,7 @@ crime = seade %>%
   mutate(cr = mean(c(fv_phm, roub_phm, furt), na.rm=T))
 
 
-make_sub_index(2011, crime, 3, 5)
+make_sub_index(2017, crime, 3, 5)
 
 
 
@@ -80,7 +89,7 @@ educ = seade %>%
 
 
 
-make_sub_index(2011, educ,3, 5)
+make_sub_index(2017, educ,3, 5)
 
 
 
@@ -98,7 +107,7 @@ long = seade %>%
 
 
 
-make_sub_index(2015, long, 3, 5)
+make_sub_index(2017, long, 3, 5)
 
 
 
@@ -113,11 +122,7 @@ saude = seade %>%
 
 
 
-make_sub_index(2015, saude,4, 6)
-
-
-
-
+make_sub_index(2017, saude,4, 6)
 
 
 # riqueza -----
@@ -129,6 +134,9 @@ riq = seade %>%
   rowwise() %>%
   mutate(riq = mean(c(c_res_elet, rend_emp_form, pib_pc, tot_pes_cad), na.rm=T))%>% 
   mutate(tot_pes_cad=1-tot_pes_cad)
+
+
+stats(riq[riq$ano==2017, 'pib_pc'] )
 
 
 make_scatter(2018, tot_pes_cad, pib_pc, riq)
@@ -148,7 +156,7 @@ san = seade %>%
   dplyr::select(c(muni, ano, IN055_AE, IN046_AE, IN015_AE, IN016_AE))
   
 
-make_sub_index(2013, san, 3, 5)
+make_sub_index(2017, san, 3, 5)
 
 
 
@@ -187,11 +195,7 @@ s_15 = DATA_SET(2015)
 s_13 = DATA_SET(2013)
 
 
-prop.table(table(s_17$class) )
 
-prop.table(table(s_15$class))
-
-prop.table(table(s_13$class))
 
 
 
