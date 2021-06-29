@@ -6,7 +6,6 @@ setwd("D:/Git projects/CEPER/ceper_eco")
 source('call_f.R')
 
 
-
 # comparar ceper com anos anteriores ----
 
 s1 =stats(i13$index)
@@ -118,6 +117,9 @@ C = C %>%
   mutate(comp = index_17 - index_13)%>%
   relocate(where(is.character)) %>%
   dplyr::select(-c(code_muni))
+
+C %>%
+  summarise(s=mean(Diferença))
 
 
 colnames(C) = c("Município", "Índice 2013", "Ranking 2013", "Índice 2017", "Ranking 2017", "Diferença")
@@ -249,6 +251,41 @@ stargazer::stargazer(r13,summary = F, out = 'r13.tex',
 saveRDS(nn3, 'r13.rds')
 saveRDS(nn2, 'r15.rds')
 saveRDS(nn, 'r17.rds')
+
+
+# estat desc subíndice ----
+
+
+stats(i13[1:6])
+
+basicStats(i13[1:6])
+
+
+stargazer::stargazer(stats(i13[1:6]),summary = F, out = 'subestat_13.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T
+)
+
+
+
+stargazer::stargazer(stats(i15[1:6]),summary = F, out = 'subestat_15.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T
+)
+
+
+
+
+stargazer::stargazer(stats(i17[1:6]),summary = F, out = 'subestat_17.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T
+)
+
+
+
 
 
 cor(i17$pop, i17$RIQ)

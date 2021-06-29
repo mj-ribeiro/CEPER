@@ -111,14 +111,14 @@ g15 = i15[c(1:6)]
 g17 = i17[c(1:6)]
 
 
-colnames(g13) = c('SAN', 'RIQ', 'SAU', 'LON','EDU', 'CRI')
-colnames(g15) = c('SAN', 'RIQ', 'SAU', 'LON','EDU', 'CRI')
-colnames(g17) = c('SAN', 'RIQ', 'SAU', 'LON','EDU', 'CRI')
+colnames(g13) = c('SAN', 'REN', 'SAU', 'LON','EDU', 'CRI')
+colnames(g15) = c('SAN', 'REN', 'SAU', 'LON','EDU', 'CRI')
+colnames(g17) = c('SAN', 'REN', 'SAU', 'LON','EDU', 'CRI')
 
 
 
 
-options(OutDec= ",")         # colocar o separador decimal sendo vírgula
+options(OutDec= ".")         # colocar o separador decimal sendo vírgula
 
 
 
@@ -224,16 +224,49 @@ ggsave(G, file="comp.eps", device="eps", height=4, width=8)
 
 
 
+# Histograma ----
+
+par(mfrow=c(1,3))
+
+hist(i13$index, col='darkred', probability=T, xlab='Índice CEPER - 2013',
+     ylab='Frequência', main='', breaks=20, ylim=c(0,15))
+curve(dnorm(x, 0.59, 0.027), col='red', add=T)
+
+
+hist(i15$index, col='lightblue',probability=T, xlab='Índice CEPER - 2015',
+     ylab='Frequência', main='', breaks=20, ylim=c(0,15))
+curve(dnorm(x, 0.59, 0.027), col='red', add=T)
+
+
+hist(i17$index, col='lightgreen', probability=T,  xlab='Índice CEPER - 2017',
+     ylab='Frequência', main='', breaks=20, ylim=c(0,15))
+
+curve(dnorm(x, 0.61, 0.027), col='red', add=T)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Bubble chart ----
 
 col=viridis::inferno(7, alpha=0.5, begin=0.0, end = 0.9)
 
-b3 = head(i17[order(i17$pop, decreasing = T), c('RIQ', 'muni', 'pop', 'CRIME', 'index') ], 50 )
+b3 = head(i17[order(i17$pop, decreasing = T), c('RIQ', 'muni', 'pop', 'CRIME', 'index') ], 30 )
 
 b3$i_levels= cut(b3$index, breaks=seq(0.45, 0.75, 0.05))
-col = c('red', 'blue', 'green')
+col = c('darkred', 'red','orange', 'lightgreen' , 'yellow')
 
 b3 %>%
   ggplot(aes(CRIME, RIQ)) +
@@ -258,7 +291,7 @@ b3 %>%
         axis.title.x = element_text(colour = 'black', size=12),
         axis.title.y = element_text(colour = 'black', size=12) )+
   guides(colour=guide_legend(override.aes=list(alpha=0.5, size=8))) +
-  scale_size(range = c(0.1, 40), name="Log da População") +
+  scale_size(range = c(0.1, 20), name="Log da População") +
   scale_color_manual(values = col, name='Índice CEPER') +
   ylab('Riqueza') +
   xlab("Crimes contra o patrimônio") 

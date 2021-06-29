@@ -74,6 +74,8 @@ normalit <- function(m){(m - min(m))/(max(m)-min(m))}
 
 #stats = function(x){fBasics::basicStats(x) }
 
+
+
 stats = function (x, ci = 0.95) 
 {
   y = as.matrix(x)
@@ -106,12 +108,12 @@ stats = function (x, ci = 0.95)
     X.length = length(X)
     X = X[!is.na(X)]
     X.na = X.length - length(X)
-    z = c(X.length,  min(X), max(X), max(x)-min(x),  
+    z = c(X.length,  min(X), max(X), diff(range(X)),  
           as.numeric(quantile(X, prob = 0.25, na.rm = TRUE)),
           as.numeric(quantile(X, prob = 0.75, na.rm = TRUE)), mean(X),
-          median(X), var(X), sqrt(var(X)),sqrt(var(X))/mean(X), skewness(X), 
+          median(X), var(X), sqrt(var(X)),(sqrt(var(X))/mean(X)) , skewness(X), 
           kurtosis(X))
-    znames = c("nobs",  "Mínimo","Máximo", "Amplitude",  "1° Quartil", 
+    znames = c("Observações",  "Mínimo","Máximo", "Amplitude",  "1° Quartil", 
                "3° Quartil", "Média", "Mediana", "Variância",
                "Desvio Padrão", 'Coeficiente de Variação', "Assimetria", "Curtose")
     result = matrix(z, ncol = 1)
