@@ -75,7 +75,6 @@ normalit <- function(m){(m - min(m))/(max(m)-min(m))}
 #stats = function(x){fBasics::basicStats(x) }
 
 
-
 stats = function (x, ci = 0.95) 
 {
   y = as.matrix(x)
@@ -140,7 +139,7 @@ med = function(x){
 # make sub index ----
 
 
-make_sub_index = function(year, df,y = 3,  x){
+make_sub_index = function(year, df, y = 3,  x){
   R = cor(df[df[,'ano']==year, y:x])
   id = colnames(R)
   

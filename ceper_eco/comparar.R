@@ -3,7 +3,14 @@
 
 setwd("D:/Git projects/CEPER/ceper_eco")
 
+
 source('call_f.R')
+
+i17 = read_rds('n_17.rds')
+i13 = read_rds('n_13.rds')
+i15 = read_rds('n_15.rds')
+
+
 
 
 # comparar ceper com anos anteriores ----
@@ -30,10 +37,6 @@ stargazer::stargazer(BIND,summary = F, out = 'estat_desc.tex',
                      rownames = T
 )
 
-
-BIND
-
-viridis::inferno(6, 1, 0.2)
 
 
 # porcetagem de municípios nos grupos ----
@@ -96,10 +99,15 @@ stargazer::stargazer(rank,summary = F, out = 'rank.tex',
 
 # Tabela 3: evolução -----
 
+i17 = read_rds('n_17.rds')
+i13 = read_rds('n_13.rds')
+i15 = read_rds('n_15.rds')
+
 
 
 c13 = i13%>%
   dplyr::select(c(code_muni, index, pos))
+
 colnames(c13)[2:3] = c("index_13", "pos_13")
 
 
@@ -118,11 +126,12 @@ C = C %>%
   relocate(where(is.character)) %>%
   dplyr::select(-c(code_muni))
 
-C %>%
-  summarise(s=mean(Diferença))
-
 
 colnames(C) = c("Município", "Índice 2013", "Ranking 2013", "Índice 2017", "Ranking 2017", "Diferença")
+
+
+C %>%
+  summarise(s=mean(Diferença))
 
 
 P1 = head(C[order(C$Diferença, decreasing = T), ], 10 )
@@ -139,8 +148,7 @@ stargazer::stargazer(CC,summary = F, out = 'comp.tex',
                      rownames = F
 )
 
-
-
+mean(CC$Diferença)
 
 
 ##### Ranking  dos subíndices ----
@@ -246,11 +254,10 @@ stargazer::stargazer(r13,summary = F, out = 'r13.tex',
 
 
 
-
-
-saveRDS(nn3, 'r13.rds')
-saveRDS(nn2, 'r15.rds')
-saveRDS(nn, 'r17.rds')
+# salvar ranking dos subíndices
+#saveRDS(nn3, 'r13.rds')
+#saveRDS(nn2, 'r15.rds')
+#saveRDS(nn, 'r17.rds')
 
 
 # estat desc subíndice ----
@@ -260,6 +267,7 @@ stats(i13[1:6])
 
 basicStats(i13[1:6])
 
+# subíndice 2013
 
 stargazer::stargazer(stats(i13[1:6]),summary = F, out = 'subestat_13.tex',
                      decimal.mark = ',',
@@ -268,6 +276,7 @@ stargazer::stargazer(stats(i13[1:6]),summary = F, out = 'subestat_13.tex',
 )
 
 
+# subíndice 2015
 
 stargazer::stargazer(stats(i15[1:6]),summary = F, out = 'subestat_15.tex',
                      decimal.mark = ',',
@@ -277,6 +286,7 @@ stargazer::stargazer(stats(i15[1:6]),summary = F, out = 'subestat_15.tex',
 
 
 
+# subíndice 2017
 
 stargazer::stargazer(stats(i17[1:6]),summary = F, out = 'subestat_17.tex',
                      decimal.mark = ',',
@@ -295,18 +305,53 @@ nn[order(nn$riq_r, decreasing = F),]
 
 
 
-cor(i17[1:7] )
-
-cor(i15[1:7] )
-
-cor(i13[1:7] )
 
 
-colnames(i17)
+# correlação 2017
+
+nomes =  c('Saneamento', 'Renda', 'Saúde', 'Longevidade',
+                  'Educação', 'Crime', 'Índice', "class", "muni",
+                  "code_muni",
+                  "ano",  "pop","pos")
+
+colnames(i17) = nomes
+colnames(i15) = nomes
+colnames(i13) = nomes
+
+
+
+stargazer::stargazer(cor(i17[1:7] ),summary = F, out = 'cor17.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T)
+
+
+# correlação 2015
+
+stargazer::stargazer(cor(i15[1:7] ),summary = F, out = 'cor15.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T)
+
+
+# correlação 2013
+
+stargazer::stargazer(cor(i13[1:7] ),summary = F, out = 'cor13.tex',
+                     decimal.mark = ',',
+                     digits.extra=0, digits=4,
+                     rownames = T)
 
 
 
 
+log(0.623/0.5987)
+
+
+
+
+
+
+# end
 
 
 

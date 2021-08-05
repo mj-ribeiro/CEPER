@@ -1,3 +1,4 @@
+
 setwd("D:/Git projects/CEPER/ceper_eco")
 
 
@@ -6,62 +7,7 @@ setwd("D:/Git projects/CEPER/ceper_eco")
 source('call_f.R')
 
 
-# seade ----
-
-seade =  readxl::read_excel('DADOS_INDEX.xlsx')
-cad = read_rds('cad.rds')
-snis = read_rds('san.rds')
-
-
-
-seade=seade%>%
-  mutate(my_code = as.numeric(substr(code_muni, 1, 6)) )
-
-seade = merge(seade, cad, by=c('ano', 'my_code'))
-
-seade = merge(seade, snis, by=c('ano', 'code_muni'))
-
-
-
-seade = seade %>%
-  dplyr::select(-muni.san)%>%
-  filter(ano>2008)%>%
-  mutate(np = cut(seade$pop, breaks=c(seq(0, 4e5, 1e4), Inf) ) )%>%
-  group_by(np, ano)%>%
-  mutate_all( funs(ifelse(is.na(.), mean(., na.rm = TRUE),.)) ) %>%
-  mutate(hom_phm =1e3*hom/pop,
-         furt_phm = 1e3*furt/pop,
-         fv_phm = 1e3*fv/pop,
-         roub_phm = 1e3*roub/pop,
-         pib_pc = log(pib_pc),
-         c_res_elet = log(c_res_elet),
-         tot_pes_cad = 1e3*tot_pes_cad/pop)
-
-
-
-
-stats(tt[tt$ano==2013, 'fv'] )
-
-
-
-nomes = seade[,c('muni', 'code_muni', 'ano', 'pop')]
-
-
-seade = seade %>%
-  group_by(ano)%>%
-  dplyr::select(seq(5, 35))%>%
-  dplyr::select(-np)%>%
-  mutate_all(normalit)
-
-
-#xx = caret::preProcess(seade[,5:(dim(seade)[2])] , 'range')
-#seade=predict(xx, as.data.frame(seade[,5:(dim(seade)[2])] ))
-
-
-seade[,'ano'] = nomes$ano
-seade[,'muni'] = nomes$muni
-
-
+seade <- readRDS('seade2.rds')
 
 # crime -----
 
@@ -73,7 +19,8 @@ crime = seade %>%
   mutate(cr = mean(c(fv_phm, roub_phm, furt), na.rm=T))
 
 
-make_sub_index(2017, crime, 3, 5)
+make_sub_index(2015, crime, 3, 5)
+
 
 
 
@@ -89,7 +36,7 @@ educ = seade %>%
 
 
 
-make_sub_index(2017, educ,3, 5)
+make_sub_index(2015, educ,3, 5)
 
 
 
@@ -107,7 +54,10 @@ long = seade %>%
 
 
 
-make_sub_index(2017, long, 3, 5)
+stats(long[long$ano==2015, 'tx_m_infantil'] )
+
+
+make_sub_index(2015, long, 3, 5)
 
 
 
@@ -121,8 +71,7 @@ saude = seade %>%
   mutate(sau = mean(c(l_sus_pmh, t_enf_phm, enf_phm, m_phm), na.rm=T))
 
 
-
-make_sub_index(2017, saude,4, 6)
+make_sub_index(2015, saude,4, 6)
 
 
 # riqueza -----
@@ -136,15 +85,14 @@ riq = seade %>%
   mutate(tot_pes_cad=1-tot_pes_cad)
 
 
-stats(riq[riq$ano==2017, 'pib_pc'] )
+
+stats(riq[riq$ano==2015, 'pib_pc'] )
 
 
-make_scatter(2018, tot_pes_cad, pib_pc, riq)
+make_scatter(2017, tot_pes_cad, pib_pc, riq)
 
 
-make_sub_index(2017, riq, 3, 6)
-
-
+make_sub_index(2015, riq, 3, 6)
 
 
 
@@ -156,9 +104,11 @@ san = seade %>%
   dplyr::select(c(muni, ano, IN055_AE, IN046_AE, IN015_AE, IN016_AE))
   
 
-make_sub_index(2017, san, 3, 5)
+make_sub_index(2015, san, 3, 5)
 
 
+
+# Build index 
 
 DATA_SET = function(year){
   SAN = make_var(year, san,3, 5 )
@@ -189,9 +139,7 @@ DATA_SET = function(year){
 
 
 s_17 = DATA_SET(2017)
-
 s_15 = DATA_SET(2015)
-
 s_13 = DATA_SET(2013)
 
 
@@ -199,9 +147,9 @@ s_13 = DATA_SET(2013)
 
 
 
-saveRDS(s_17, 's_17.rds')
-saveRDS(s_15, 's_15.rds')
-saveRDS(s_13, 's_13.rds')
+saveRDS(s_17, 'n_17.rds')
+saveRDS(s_15, 'n_15.rds')
+saveRDS(s_13, 'n_13.rds')
 
 
 
@@ -209,3 +157,5 @@ saveRDS(s_13, 's_13.rds')
 
 
 
+
+# end

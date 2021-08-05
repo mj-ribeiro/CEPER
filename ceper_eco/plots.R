@@ -6,6 +6,11 @@ setwd("D:/Git projects/CEPER/ceper_eco")
 source('call_f.R')
 
 
+i17 = read_rds('n_17.rds')
+i13 = read_rds('n_13.rds')
+i15 = read_rds('n_15.rds')
+
+
 # maps ----
 
 mybreaks = c(seq(0.4, 0.70, 0.05), 0.755)
@@ -77,14 +82,14 @@ mp13 = st_as_sf(mp13)
 
 g13 = maps_f(sh=mp13, x='index',
              leg='Índice CEPER', 
-             type='.eps',
+             type='.png',
              fonte='cp13_',
              breaks = mybreaks,
              colors = mycolors,
              labels = mylabel
 )
 
-
+i17$muni=rownames(i17) 
 
 
 # mapa interativo ----
