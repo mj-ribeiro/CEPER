@@ -1,0 +1,101 @@
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[left=2cm,right=2cm, top=4cm, bottom=2cm]{geometry}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref} % links 
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{paralist}
+\usepackage{makecell}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[title]{appendix}
+
+\usepackage{enumitem}
+
+\usepackage{tabularx,ragged2e}
+
+\usepackage[hang,flushmargin, bottom]{footmisc} %retira a identação da%footnote
+
+\usepackage{adjustbox}
+
+% to make myblock
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\tcbuselibrary{skins,breakable}
+\usetikzlibrary{shadings,shadows}
+
+\usepackage{lipsum}
+
+\usepackage{float}
+
+\usepackage{graphicx,eso-pic}
+\usepackage{lipsum}
+
+% see
+%  http://www.imp.seade.gov.br/frontend/#/tabelas
+% https://tex.stackexchange.com/questions/2504/beamer-blocks-in-ordinary-article-style-document
+
+
+
+\AddToShipoutPictureBG{%
+  \AtPageUpperLeft{%
+    \raisebox{-\height}{\includegraphics[width=20cm, height=3.8cm]{figures/head2.png}}
+  }
+  %\AtPageLowerLeft{%
+   % \makebox[\paperwidth]{\includegraphics[height=1.7cm]{figures/bottom.png}}
+  %}
+}
+
+%%%%%%%%%%%% setlength
+
+\setlength{\skip\footins}{12mm} %<------------ space between text and footnote
+\setlength{\columnsep}{1cm}
+\setlength{\parskip}{0pt}
+
+
+
+%%%%%%%%%%%% New commands
+
+\newenvironment{myexampleblock}[1]{
+    \tcolorbox[
+    %noparskip,
+    breakable,
+    colframe=blue!75!black,
+    colback=white,
+    title=#1]}
+    {\endtcolorbox}
+
+
+\newcommand{\tri}{$\blacktriangleright \:$}
+
+\usepackage{lmodern}
+
+\makeatletter
+\ifcase \@ptsize \relax% 10pt
+  \newcommand{\miniscule}{\@setfontsize\miniscule{2}{3}}% \tiny: 5/6
+\or% 11pt
+  \newcommand{\miniscule}{\@setfontsize\miniscule{4}{5}}% \tiny: 6/7
+\or% 12pt
+  \newcommand{\miniscule}{\@setfontsize\miniscule{4}{5}}% \tiny: 6/7
+\fi
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Start %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+ola
+
+\end{document}
+
+

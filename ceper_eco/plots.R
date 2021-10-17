@@ -225,6 +225,9 @@ cor(df2$iprs, df2$index)
 G = ggarrange(g1, g2, nrow=1, ncol=2)
 G
 
+library(extrafont)
+extrafont::font_import()
+
 ggsave(G, file="comp.eps", device="eps", height=4, width=8)
 
 

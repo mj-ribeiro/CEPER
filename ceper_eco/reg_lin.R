@@ -106,8 +106,6 @@ saveRDS(seade, 'seade2.rds')
 
 
 
-
-
 #####
 
 ### exemplos

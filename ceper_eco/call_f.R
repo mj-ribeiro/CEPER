@@ -164,7 +164,6 @@ make_sub_index = function(year, df, y = 3,  x){
 
 
 
-
 # calcular indice ----
 
 make_var = function(year, df, y, x){
