@@ -1,6 +1,7 @@
 \PassOptionsToPackage{svgnames}{xcolor}
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8x]{inputenc}
+\DeclareUnicodeCharacter{"2061}{}
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath, amssymb, amsfonts}
@@ -42,6 +43,8 @@
 %  http://www.imp.seade.gov.br/frontend/#/tabelas
 % https://tex.stackexchange.com/questions/2504/beamer-blocks-in-ordinary-article-style-document
 
+\usepackage{longtable}
+\usepackage{caption,setspace}
 
 
 \AddToShipoutPictureBG{%
@@ -94,7 +97,7 @@
 \begin{document}
 
 
-ola
+\input{sections/sec_1}
 
 \end{document}
 

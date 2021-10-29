@@ -2,15 +2,15 @@
 #                      PRODUTIVIDADE ESTADUAL
 #########################################################################
 
-# here I will calculate descriptive statistics on the sanitation 
-# situation in the municipalities of São Paulo 
+# here I will calculate descriptive statistics on the sanitation
+# situation in the municipalities of São Paulo
 
 
 setwd("D:/Git projects/CEPER/ceper_san3")
 
 
-path_tab = "D:/Git projects/CEPER/ceper_san3/rel_tex/tables"
-path_fig = "D:/Git projects/CEPER/ceper_san3/rel_tex/figures"
+path_tab = "D:/Git projects/CEPER/ceper_san3/rel_tex/tables/"
+path_fig = "D:/Git projects/CEPER/ceper_san3/rel_tex/figures/"
 
 
 
@@ -35,7 +35,6 @@ myfunc <- function(v1) {
 
 
 
-
 # negate in ----
 
 `%notin%` <- Negate(`%in%`)
@@ -54,7 +53,7 @@ region = function(uf){
 # stats-----
 
 
-stats = function (x, ci = 0.95) 
+stats = function (x, ci = 0.95)
 {
   y = as.matrix(x)
   if (is.null(colnames(y))) {
@@ -63,14 +62,14 @@ stats = function (x, ci = 0.95)
       colnames(y) = paste(substitute(x), collapse = ".")
     }
     else if (Dim > 1) {
-      colnames(y) = paste(paste(substitute(x), collapse = ""), 
+      colnames(y) = paste(paste(substitute(x), collapse = ""),
                           1:Dim, sep = "")
     }
   }
   cl.vals = function(x, ci) {
     x = x[!is.na(x)]
     n = length(x)
-    if (n <= 1) 
+    if (n <= 1)
       return(c(NA, NA))
     se.mean = sqrt(var(x)/n)
     t.val = qt((1 - ci)/2, n - 1)
@@ -86,12 +85,12 @@ stats = function (x, ci = 0.95)
     X.length = length(X)
     X = X[!is.na(X)]
     X.na = X.length - length(X)
-    z = c(X.length, sum(is.na(x)),  min(X), max(X), diff(range(X)),  
+    z = c(X.length, sum(is.na(x)),  min(X), max(X), diff(range(X)),
           as.numeric(quantile(X, prob = 0.25, na.rm = TRUE)),
           as.numeric(quantile(X, prob = 0.75, na.rm = TRUE)), mean(X),
-          median(X), var(X), sqrt(var(X)),(sqrt(var(X))/mean(X)) , skewness(X), 
+          median(X), var(X), sqrt(var(X)),(sqrt(var(X))/mean(X)) , skewness(X),
           kurtosis(X))
-    znames = c("Observations", "NAs", "Minimum","Maximum", "Amplitude",  "1 Quartile", 
+    znames = c("Observations", "NAs", "Minimum","Maximum", "Amplitude",  "1 Quartile",
                "3 Quartile", "Mean", "Median", "Variance",
                "Standard Deviation", 'Coefficient of Variation', "Skewness", "Kurtosis")
     result = matrix(z, nrow  = length(znames))
@@ -100,7 +99,7 @@ stats = function (x, ci = 0.95)
   }
   colnames(result) = colnames(y)
   as_tibble(round(result, digits = 2))
-  
+
 }
 
 

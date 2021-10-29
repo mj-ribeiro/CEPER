@@ -66,10 +66,32 @@ stats2 = function(data, x){
               Mediana = median(!!x),
               Máximo = max(!!x),
               Mínimo = min(!!x),
-              Desvio_p = sd(!!x) )
+              Desvio_p = sd(!!x) )%>%
+    as.data.frame()
 }
 
-stats2(df, IN055)
+
+
+tabs = function(x){
+  
+  x = enquo(x)
+  tab = stats2(df, !!x)
+  
+  stargazer::stargazer(tab, summary = F, out = paste(path_tab, x, '.tex', sep=''),
+                       decimal.mark = '.', digit.separator = '',
+                       digits.extra=0, digits=4,
+                       rownames = F, colnames = T)
+}
+
+
+tabs(IN019)
+
+view_n()
+
+
+
+
+
 
 view_n()
 
