@@ -12,7 +12,7 @@ setwd("D:/Git projects/CEPER/ceper_san3")
 path_tab = "D:/Git projects/CEPER/ceper_san3/rel_tex/tables/"
 path_fig = "D:/Git projects/CEPER/ceper_san3/rel_tex/figures/"
 
-
+#install.packages('ggthemes')
 
 library(readxl)
 library(tidyverse)
