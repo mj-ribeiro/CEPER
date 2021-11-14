@@ -4,6 +4,8 @@
 
 \begin{multicols}{2}
 
+\subsection{Teste de Kruskal-Wallis}
+
 Na Tabela \ref{tab:krusk} apresentamos o Teste de Kruskal-Wallis dos índices que analisamos. A hipótese nula $(H0)$ do teste é de que os valores de um índice específico quando agrupados pela natureza jurídica do prestador de serviços fazem parte de uma mesma população. Nota-se que somente em quatro índice rejeitamos $H0$, ou seja, para esses índices, os grupos fazem parte de populações idênticas não havendo diferenças significativas entre os prestadores de serviços.
 
 \end{multicols}
@@ -15,13 +17,25 @@ Na Tabela \ref{tab:krusk} apresentamos o Teste de Kruskal-Wallis dos índices qu
 
 \begin{multicols}{2}
 
+\subsection{Análise de correlação}
+
 Na Figura \ref{f:corr} temos um correlograma dos índices que estamos analisando. Primeiro vamos discutir as correlações positivas e em seguida as negativas.
 
 Nota-se que as variáveis relacionadas a tarifa média (IN004, IN005, IN006) possuem alta correlação positiva entre si, como já era de se esperar. Os índices relacionados as despesas IN008 e IN026 também possuem alta correlação positiva entre si e com os índices de despesas. Isso indica que quanto maiores as despesas, maior tende a ser as tarifas médias praticadas. 
 
+Destaca-se também a alta correlação positiva entre o atendimento total de água (IN055) e o indicador de desempenho financeiro (IN012), isso pode ser um indicativo de que os serviços de atendimento de água são responsáveis por uma parcela significativa das receitas dos prestadores de serviços. 
+
+Por fim, notamos também alta correlação positiva entre a despesa média anual por empregado (IN008) e o índice de produtividade (IN102). Ao que parece, maiores gastos com empregados está tendo efeito positivo na produtividade deles.
+
+Do lado das correlações negativas temos o índice de atendimento total de água (IN055) e a despesa de exploração por m3 faturado (IN026). Aparentemente nos municípios em que a maior parte da população possui atendimento de água não é necessário investir tanto em exploração por m3 faturado.
+
+Nota-se também alta correlação negativa entre os índices de despesa (IN008, IN026) e o indicado de desempenho financeiro (IN012). Como era de se esperar, maiores despesas diminuem os lucros e o desempenho financeiro das empresas do setor.
+
 
 \end{multicols}
 
+
+%--------- figure
 
 \begin{figure}[H]
         \centering
@@ -38,7 +52,7 @@ Nota-se que as variáveis relacionadas a tarifa média (IN004, IN005, IN006) pos
 				IN016 - Índice de tratamento de esgoto,
 				IN055 - Índice de atendimento total de água,	
 				IN012 - Indicador de desempenho financeiro,
-				IN102 - Índice de produtividade de pessoal total a produtividade,
+				IN102 - Índice de produtividade de pessoal total,
 				IN083 - Duração média dos serviços executados,	
 				IN008 - Despesa média anual por empregado,
 				IN026 - Despesa de exploração por m3 faturado.   	
@@ -47,13 +61,30 @@ Nota-se que as variáveis relacionadas a tarifa média (IN004, IN005, IN006) pos
 
 
 
+\begin{multicols}{2}
+\subsection{Estatísticas descritivas}
 
+
+
+\end{multicols}
 
 \input{tables/desc}
+
 
 \input{tables/desc2}
 
 
+
+\begin{multicols}{2}
+\subsection{Análise de regressão}
+
+Na Tabela \ref{tab:reg} constam os resultados das regressões que estimamos, conforme a equação \ref{eq:reg1}. Recorde-se que estamos estimando regressões múltiplas com \textit{dummies} indicadoras de natureza jurídica e variáveis de interação entre essas \textit{dummies} e o índice de interesse. Logo, para manter a simplicidade da análise reportamos somente a soma dos coeficientes angulares das regressões, ou seja, $(\alpha_{1j} + \gamma_{ij} )$.
+
+Podemos ver que somente a sociedade de economia mista tem capacidade de reduzir a tarifa média praticada dado um aumento nos índices de coleta e tratamento de esgoto.
+Já a Adm. pública tem capacidade de reduzir a tarifa média mesmo com aumentos no índice de atendimento total de água.
+
+
+\end{multicols}
 \input{tables/reg}
 
 
