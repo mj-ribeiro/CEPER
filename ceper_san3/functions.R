@@ -16,14 +16,20 @@ path_fig = "D:/Git projects/CEPER/ceper_san3/rel_tex/figures/"
 
 library(readxl)
 library(tidyverse)
-library(dplyr)
+#library(dplyr)
 library(fGarch)
-library(magrittr)
-library(haven)
+#library(magrittr)
+#library(haven)
 library(xlsx)
-library(data.table)
+#library(data.table)
 library(ggpubr)
 library(ggthemes)
+
+library(udunits2)
+library(emmeans)
+library(tmap)
+library(geobr)
+library(sf)
 
 options(scipen=999) # suppress scientific notation
 

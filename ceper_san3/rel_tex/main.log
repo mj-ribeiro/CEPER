@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.31)  2 NOV 2021 19:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.31)  14 NOV 2021 13:47
 entering extended mode
 **./main.tex
 (main.tex
@@ -1192,8 +1192,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 95
-.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
+0.
 
 (C:\Users\Marcos Júnio Ribeiro\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lm
 r.fd
@@ -1201,24 +1201,24 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
 
 (C:\Users\Marcos Júnio Ribeiro\AppData\Local\Programs\MiKTeX\tex/latex/ucs\ucs
 encs.def
@@ -1273,7 +1273,7 @@ mkii\supp-pdf.mkii
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 95.
+Package hyperref Info: Link coloring ON on input line 100.
 
 (C:\Users\Marcos Júnio Ribeiro\AppData\Local\Programs\MiKTeX\tex/latex/hyperre
 f\nameref.sty
@@ -1289,9 +1289,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count354
 )
-LaTeX Info: Redefining \ref on input line 95.
-LaTeX Info: Redefining \pageref on input line 95.
-LaTeX Info: Redefining \nameref on input line 95.
+LaTeX Info: Redefining \ref on input line 100.
+LaTeX Info: Redefining \pageref on input line 100.
+LaTeX Info: Redefining \nameref on input line 100.
  (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -1355,155 +1355,200 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 10.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 10.
-) (sections/sec_2.tex
-Underfull \hbox (badness 10000) in paragraph at lines 7--9
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--12
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 13--15
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
-
- []
-
-<figures/head2.png, id=55, 570.933pt x 117.43875pt>
+) (sections/sec_2.tex) (sections/sec_4.tex
+<figures/head2.png, id=69, 570.933pt x 117.43875pt>
 File: figures/head2.png Graphic file (type png)
 <use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 19.
+Package pdftex.def Info: figures/head2.png  used on input line 6.
 (pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
-[1
+ [1
 
 {C:/Users/Marcos Júnio Ribeiro/AppData/Local/MiKTeX/pdftex/config/pdftex.map} 
-<./figures/head2.png>] (tables/prop.tex)
+<./figures/head2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 16--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+
+Package multicol Warning: I moved some lines to the next page.
+(multicol)                Footnotes on page 2 might be wrong on input line 37.
+
+File: figures/head2.png Graphic file (type png)
+<use figures/head2.png>
+Package pdftex.def Info: figures/head2.png  used on input line 37.
+(pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
+[2] (tables/prop.tex)
 Package epstopdf Info: Source file: <figures/m1.eps>
 (epstopdf)                    date: 2021-11-01 20:02:09
 (epstopdf)                    size: 1465541 bytes
 (epstopdf)             Output file: <./m1-eps-converted-to.pdf>
-(epstopdf)                    date: 2021-11-02 17:19:48
+(epstopdf)                    date: 2021-11-12 09:13:23
 (epstopdf)                    size: 548379 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=./m1-eps-converted-t
 o.pdf figures/m1.eps>
-(epstopdf)             \includegraphics on input line 29.
+(epstopdf)             \includegraphics on input line 55.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./m1-eps-converted-to.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<./m1-eps-converted-to.pdf, id=73, 361.35pt x 361.35pt>
+<./m1-eps-converted-to.pdf, id=100, 361.35pt x 361.35pt>
 File: ./m1-eps-converted-to.pdf Graphic file (type pdf)
 <use ./m1-eps-converted-to.pdf>
-Package pdftex.def Info: ./m1-eps-converted-to.pdf  used on input line 29.
+Package pdftex.def Info: ./m1-eps-converted-to.pdf  used on input line 55.
 (pdftex.def)             Requested size: 289.0804pt x 289.0804pt.
+File: figures/head2.png Graphic file (type png)
+<use figures/head2.png>
+Package pdftex.def Info: figures/head2.png  used on input line 61.
+(pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
+[3]) (sections/sec_3.tex (tables/ind.tex
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 37.
 )
 File: figures/head2.png Graphic file (type png)
 <use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 121.
+Package pdftex.def Info: figures/head2.png  used on input line 11.
 (pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
- [2] (sections/sec_3.tex (tables/ind.tex
-Overfull \hbox (8.61876pt too wide) in paragraph at lines 7--38
-[][] 
- []
-
-)) (sections/sec_4.tex
-Package epstopdf Info: Source file: <corr.eps>
+ [4 <./m1-eps-converted-to.pdf>])
+(sections/sec_5.tex
+File: figures/head2.png Graphic file (type png)
+<use figures/head2.png>
+Package pdftex.def Info: figures/head2.png  used on input line 9.
+(pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
+ [5] (tables/kt.tex)
+Package epstopdf Info: Source file: <figures/cor.eps>
 (epstopdf)                    date: 2021-11-02 18:24:01
 (epstopdf)                    size: 23672 bytes
-(epstopdf)             Output file: <./corr-eps-converted-to.pdf>
-(epstopdf)                    date: 2021-11-02 18:24:32
+(epstopdf)             Output file: <./cor-eps-converted-to.pdf>
+(epstopdf)                    date: 2021-11-12 09:21:08
 (epstopdf)                    size: 14262 bytes
-(epstopdf)             Command: <miktex-epstopdf --outfile=./corr-eps-converted
--to.pdf corr.eps>
-(epstopdf)             \includegraphics on input line 14.
+(epstopdf)             Command: <miktex-epstopdf --outfile=./cor-eps-converted-
+to.pdf figures/cor.eps>
+(epstopdf)             \includegraphics on input line 31.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./corr-eps-converted-to.pdf): PDF inclusion: fou
-nd PDF version <1.7>, but at most version <1.5> allowed
-<./corr-eps-converted-to.pdf, id=80, 578.16pt x 433.62pt>
-File: ./corr-eps-converted-to.pdf Graphic file (type pdf)
-<use ./corr-eps-converted-to.pdf>
-Package pdftex.def Info: ./corr-eps-converted-to.pdf  used on input line 14.
+pdfTeX warning: pdflatex (file ./cor-eps-converted-to.pdf): PDF inclusion: foun
+d PDF version <1.7>, but at most version <1.5> allowed
+<./cor-eps-converted-to.pdf, id=135, 578.16pt x 433.62pt>
+File: ./cor-eps-converted-to.pdf Graphic file (type pdf)
+<use ./cor-eps-converted-to.pdf>
+Package pdftex.def Info: ./cor-eps-converted-to.pdf  used on input line 31.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (23.04454pt too wide) in paragraph at lines 14--17
+Overfull \hbox (23.04454pt too wide) in paragraph at lines 31--45
 [][] 
  []
 
 File: figures/head2.png Graphic file (type png)
 <use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 19.
+Package pdftex.def Info: figures/head2.png  used on input line 47.
 (pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
-[3 <./m1-eps-converted-to.pdf>] (tables/desc.tex
-Overfull \hbox (19.88234pt too wide) in paragraph at lines 7--30
-[][] 
+[6] (tables/desc.tex) (tables/desc2.tex)
+File: figures/head2.png Graphic file (type png)
+<use figures/head2.png>
+Package pdftex.def Info: figures/head2.png  used on input line 55.
+(pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
+ [7 <./cor-eps-converted-to.pdf>]
+(tables/reg.tex
+Overfull \hbox (3.10327pt too wide) in paragraph at lines 24--24
+ []|[]| 
  []
 
-) (tables/desc2.tex)
-File: figures/head2.png Graphic file (type png)
-<use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 27.
-(pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
- [4 <./corr-eps-converted-to.pdf>] (tables/kt.tex
-Overfull \hbox (7.45348pt too wide) in paragraph at lines 6--31
-[][] 
- []
+)) (sections/sec_6.tex) (sections/apendice.tex
+Package epstopdf Info: Source file: <figures/m2.eps>
+(epstopdf)                    date: 2021-11-14 11:55:46
+(epstopdf)                    size: 2216009 bytes
+(epstopdf)             Output file: <./m2-eps-converted-to.pdf>
+(epstopdf)                    date: 2021-11-14 11:55:59
+(epstopdf)                    size: 1159829 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=./m2-eps-converted-t
+o.pdf figures/m2.eps>
+(epstopdf)             \includegraphics on input line 15.
+Package epstopdf Info: Output file is already uptodate.
 
-) (tables/reg.tex)
+
+pdfTeX warning: pdflatex (file ./m2-eps-converted-to.pdf): PDF inclusion: found
+ PDF version <1.7>, but at most version <1.5> allowed
+<./m2-eps-converted-to.pdf, id=159, 578.16pt x 361.35pt>
+File: ./m2-eps-converted-to.pdf Graphic file (type pdf)
+<use ./m2-eps-converted-to.pdf>
+Package pdftex.def Info: ./m2-eps-converted-to.pdf  used on input line 15.
+(pdftex.def)             Requested size: 346.89867pt x 216.81168pt.
 File: figures/head2.png Graphic file (type png)
 <use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 31.
+Package pdftex.def Info: figures/head2.png  used on input line 21.
 (pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
- [5])
+[8])
 File: figures/head2.png Graphic file (type png)
 <use figures/head2.png>
-Package pdftex.def Info: figures/head2.png  used on input line 126.
+Package pdftex.def Info: figures/head2.png  used on input line 139.
 (pdftex.def)             Requested size: 569.11084pt x 108.12021pt.
- [6] (main.aux)
+ [9 <./m2-eps-converted-to.pdf>] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B44E6F76D51BB5160CE3C43C4F00B7B2;792.
+(rerunfilecheck)             Checksum: 98C34D5FD265605B5A3EAA632EDB97B8;945.
  ) 
 Here is how much of TeX's memory you used:
- 29961 strings out of 478927
- 579343 string characters out of 2844914
- 1022487 words of memory out of 3000000
- 47180 multiletter control sequences out of 15000+600000
- 451031 words of font info for 67 fonts, out of 8000000 for 9000
+ 30015 strings out of 478927
+ 580382 string characters out of 2844914
+ 1027814 words of memory out of 3000000
+ 47214 multiletter control sequences out of 15000+600000
+ 464020 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,16n,117p,543b,619s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
+ 87i,18n,117p,851b,619s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
 {C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/l
-m/lm-rm.enc}{C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts
-/enc/dvips/lm/lm-ec.enc}{C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/
-MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/Marcos Júnio Ribeiro/AppData
-/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}<C:/Users/Marcos Júnio
- Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Use
+m/lm-mathit.enc}{C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/f
+onts/enc/dvips/lm/lm-rm.enc}{C:/Users/Marcos Júnio Ribeiro/AppData/Local/Progr
+ams/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/Marcos Júnio Ribeiro/AppData
+/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Users/Marcos Júnio
+ Ribeiro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Use
 rs/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
-mi12.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/lm/lmr10.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/Marcos Júnio Ri
-beiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Ma
-rcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.
-pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/lm/lmsy10.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (6 pages, 804410 bytes).
+bx12.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/lm/lmex10.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Marcos Júnio Ribeiro/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/Marcos Júni
+o Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Use
+rs/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+mi8.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/lm/lmr10.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/Marcos Júnio Rib
+eiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/Mar
+cos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb
+><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmri12.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/lm/lmsy10.pfb><C:/Users/Marcos Júnio Ribeiro/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
+Output written on main.pdf (9 pages, 2032739 bytes).
 PDF statistics:
- 174 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
- 156 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 262 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

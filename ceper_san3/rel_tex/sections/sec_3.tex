@@ -1,4 +1,40 @@
 
-\section{Metodologia}\label{s3}
+\section{Metodologia}\label{s:metod}
+
+
+\begin{multicols}{2}
+Nesse boletim, analisamos quatro aspectos dos prestadores de serviços de saneamento nos municípios paulistas, considerando a natureza jurídica do prestador. São eles: custos dos serviços para o consumidor final, universalização dos serviços, desempenho financeiro e produtividade, e despesas. Para cada um desses aspectos utilizamos um conjunto de variáveis que refletem cada aspecto que queremos avaliar, isso pode ser visto na Tabela \ref{tab:ind}.
+\end{multicols}
+
 
 \input{tables/ind}
+
+\begin{multicols}{2}
+Para comparar os prestadores de serviços considerando a natureza jurídica utilizamos o Teste de Kruskall-Wallis,  análise de correlação, estatísticas descritivas (média, mediana, máximo, mínimo e desvio padrão) e análise de regressão dos índices apresentados na Tabela \ref{tab:ind}.
+
+O  Teste de Kruskall-Wallis é um teste estatístico não paramétrico utilizado para verificar se amostras de diferentes grupos fazem parte de uma mesma população.
+A ideia é verificar se os valores de um determinado índice é diferente quando o agrupamos pela natureza jurídica do prestador de serviço. A hipótese nula é de que os valores de um determinado índice quando agrupados pela natureza jurídica do prestador de serviços fazem parte de uma mesma população. Caso seja aceita podemos dizer que não há diferença entre os grupos em um determinado índice.
+
+Na análise de regressão iremos estimar a seguinte equação:
+\begin{equation*}
+	\text{IN004} = \alpha_0 +
+	 \alpha_1 I_{j} +
+	 \sum_{i=1}^{4} \beta_i N_i + 
+	 \sum_{i=1}^{4} \gamma_i (N_i \times I_j)
+\end{equation*}
+onde $\alpha_0$ é o intercepto, $I_j$ é um dos índices da Tabela \ref{tab:ind}, sendo que $j \, \exists \, (1, 2, \cdots, 8)$, e $N_i$ é uma \textit{dummy} que indica a natureza jurídica do prestador de serviços e $i \, \exists \, (1, 2, 3, 4)$. Logo, serão estimadas oito regressões, uma para cada índice da Tabela \ref{tab:ind}, exceto para o IN005 e IN006. 
+
+O intuito é verificar se os prestadores de serviços conseguem reduzir a tarifa média praticada (IN004) dado um aumento na universalização dos serviços, produtividade e despesas. Portanto, na nossa análise iremos focar no coeficiente angular $(\alpha_1 + \gamma_i)$. 
+
+\end{multicols}
+
+
+
+
+
+
+
+
+
+
+
